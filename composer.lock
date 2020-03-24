@@ -1559,7 +1559,7 @@
             "version": "2.10.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:laminas/laminas-inputfilter.git",
+                "url": "https://github.com/laminas/laminas-inputfilter",
                 "reference": "b29ce8f512c966468eee37ea4873ae5fb545d00a"
             },
             "dist": {
