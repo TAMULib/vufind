@@ -1166,12 +1166,11 @@ EOT;
      */
     protected function extractBlockReasons($borrowBlocks)
     {
-        $whitelistConfig = isset($this->config['Patron']['ignoredBlockCodes'])
-            ? $this->config['Patron']['ignoredBlockCodes'] : '';
-        $whitelist = array_map('trim', explode(',', $whitelistConfig));
+        $ignoredConfig = $this->config['Patron']['ignoredBlockCodes'] ?? '';
+        $ignored = array_map('trim', explode(',', $ignoredConfig));
         $blockReason = [];
         foreach ($borrowBlocks as $borrowBlock) {
-            if (!in_array((string)$borrowBlock->blockCode, $whitelist)) {
+            if (!in_array((string)$borrowBlock->blockCode, $ignored)) {
                 $blockReason[] = (string)$borrowBlock->blockReason;
             }
         }
@@ -1247,18 +1246,6 @@ EOT;
         }
         return empty($blockReason) ? false : $blockReason;
     }
-
-    /**
-     * Renew My Items
-     *
-     * Function for attempting to renew a patron's items.  The data in
-     * $renewDetails['details'] is determined by getRenewDetails().
-     *
-     * @param array $renewDetails An array of data required for renewing items
-     * including the Patron ID and an array of renewal IDS
-     *
-     * @return array              An array of renewal information keyed by item ID
-     */
 
     /**
      * Renew My Items

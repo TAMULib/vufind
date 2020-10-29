@@ -29,7 +29,6 @@ namespace VuFind\Log;
 
 use Interop\Container\ContainerInterface;
 use Laminas\Config\Config;
-use Laminas\Console\Console;
 use Laminas\Log\Writer\WriterInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
@@ -188,10 +187,10 @@ class LoggerFactory implements FactoryInterface
         // Query parameters do not apply in console mode; if we do have a debug
         // query parameter, and the appropriate permission is set, activate dynamic
         // debug:
-        if (!Console::isConsole()
+        if (PHP_SAPI !== 'cli'
             && $container->get('Request')->getQuery()->get('debug')
         ) {
-            return $container->get(\ZfcRbac\Service\AuthorizationService::class)
+            return $container->get(\LmcRbacMvc\Service\AuthorizationService::class)
                 ->isGranted('access.DebugMode');
         }
         return false;
@@ -382,7 +381,11 @@ class LoggerFactory implements FactoryInterface
             $proxy->setProxyInitializer(null);
 
             // Now build the actual service:
-            $wrapped = new $requestedName();
+            $loggerOptions = [
+                'vufind_ip_reader' =>
+                    $container->get(\VuFind\Net\UserIpReader::class)
+            ];
+            $wrapped = new $requestedName($loggerOptions);
             $this->configureLogger($container, $wrapped);
         };
         $cfg = $container->get(\ProxyManager\Configuration::class);
