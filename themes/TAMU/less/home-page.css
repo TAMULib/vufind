@@ -3,276 +3,230 @@
   margin-right: -@grid-gutter-width;
 } 
 */
-
-body{
+body {
   position: relative;
 }
-
-
 .search-hero {
-  &:extend(.clearfix all);
-
   position: relative;
   padding: 2rem 8rem;
   font-size: 1.15rem;
-  
   /*background-image: url('@{image-path}/evans_full_c.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   */
 }
-  a { color: #2b5d7d; 
-    border-bottom: 1px dotted #2b5d7d;
-    text-decoration: none;
-  }
-
-  a:hover{text-decoration: none;}
-
-  .image-credit {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 1rem;
-    font-size: .8rem;
-    color: rgba(255,255,255,.5);
-    background-color: rgba(0,0,0,.5);
-
-    a { color: #fff; }
-  }
-
- /* .search-home-facets {
+a {
+  color: #2b5d7d;
+  border-bottom: 1px dotted #2b5d7d;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+.image-credit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.image-credit a {
+  color: #fff;
+}
+/* .search-home-facets {
     margin-top: 60px;
     background-color: #500000;
     padding: 20px;
     border: 2px solid #fff;
   }	  
 */
-  .search-home-facets h2 {
-    color: #000000;
-    font-size: 1.25rem;
-  }
-
-
-  .home-facet-list{
-    line-height: 2rem;
-  }
-
+.search-home-facets h2 {
+  color: #000000;
+  font-size: 1.25rem;
+}
+.home-facet-list {
+  line-height: 2rem;
+}
 .navbar {
   position: relative;
   min-height: static;
   margin-bottom: 0px;
   border: none;
 }
-
 .navbar {
-  background:#500000;
+  background: #500000;
   border-radius: 0px;
   padding: 0px;
-  
 }
-
-
 .navbar-brand {
   float: left;
-  height: auto; 
+  height: auto;
   padding: 0px;
   font-size: 18px;
   line-height: 20px;
 }
-
-
 /* Hide search bar */
-.template-dir-search.template-name-home .search.container { display: none; }
-
-.brow{
-  background-color: #3c0000;
-  border-bottom:1px solid #333;
+.template-dir-search.template-name-home .search.container {
+  display: none;
 }
-
-
-
+.brow {
+  background-color: #3c0000;
+  border-bottom: 1px solid #333;
+}
 .libLogo {
   display: inline-block;
-  
   width: 52px;
   height: 36px;
   background: url(../images/tamu-logo.svg);
   background-size: 52px 36px;
 }
-
-.nameBrand{
+.nameBrand {
   display: inline-block;
   vertical-align: top;
   padding-top: 8px;
   color: #ffffff;
 }
-
-.browLinks ul{
+.browLinks ul {
   margin-bottom: 0px;
-  margin-top:10px;
+  margin-top: 10px;
 }
-
-.browLinks ul li{
-list-style-type: none;
-display: inline-block;
+.browLinks ul li {
+  list-style-type: none;
+  display: inline-block;
 }
-
-.browLinks ul li a{
+.browLinks ul li a {
   color: #ffffff;
   text-decoration: none;
   padding: 12px;
   border-bottom: none;
 }
-
-.browLinks ul li a:hover{
+.browLinks ul li a:hover {
   color: #000000;
   background-color: #ffc222;
   text-decoration: none;
   border-bottom: none;
 }
-
-.appTitle{
+.appTitle {
   height: 85px;
 }
-
-.appTitle h2{
-  color:#ffffff;
-  font-size:36px;
+.appTitle h2 {
+  color: #ffffff;
+  font-size: 36px;
 }
-
-.appTitle h2 a{
-  color:#ffffff;
+.appTitle h2 a {
+  color: #ffffff;
   text-decoration: none;
 }
-
-.appTitle h2 a:hover{
-  color:#ffffff;
+.appTitle h2 a:hover {
+  color: #ffffff;
   text-decoration: none;
 }
-
-.languageDrp a{
-  color:#ffffff;
+.languageDrp a {
+  color: #ffffff;
   border-bottom: none;
   text-decoration: none;
 }
-
-
-.languageDrp a:hover{
-  color:#000000;
+.languageDrp a:hover {
+  color: #000000;
   border-bottom: none;
   text-decoration: none;
 }
-
-.language a{
-  color:#2b5d7d;
+.language a {
+  color: #2b5d7d;
   border-bottom: 1px dotted #2b5d7d;
   text-decoration: none;
 }
-
-.language a:hover{
-  color:#000000;
+.language a:hover {
+  color: #000000;
   border-bottom: 1px dotted #2b5d7d;
   text-decoration: none;
 }
-
-.langNav{
-  margin-top:20px;
+.langNav {
+  margin-top: 20px;
   background: #500000;
-  color:#ffffff;
+  color: #ffffff;
 }
-
-.searchbox{
+.searchbox {
   background: #ffffff;
-padding-top: 20px;
+  padding-top: 20px;
 }
-
-.searchForm_lookfor{
-  min-width:500px;
+.searchForm_lookfor {
+  min-width: 500px;
 }
-.tab-content{
-    padding: 50px;
-    background: #eeeeee;
-  }
-
-  .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
-    color: #000;
-    cursor: default;
-    background-color: #eeeeee;
-    border: 1px solid #ddd;
-    border-bottom-color: transparent;
-    text-decoration: none;
+.tab-content {
+  padding: 50px;
+  background: #eeeeee;
 }
-
-.tamuFooter{
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: #000;
+  cursor: default;
+  background-color: #eeeeee;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+  text-decoration: none;
+}
+.tamuFooter {
   background: #500000;
-    border-radius: 0px;
-    padding: 20px;
-    min-height:50px;
+  border-radius: 0px;
+  padding: 20px;
+  min-height: 50px;
 }
-
-.tamuFooter nav li{
+.tamuFooter nav li {
   display: inline-block;
-    margin-left: 1.125em;
-
+  margin-left: 1.125em;
 }
-
-.tamuFooter nav li a{ 
-    color: #fff;
-    font-size: 0.75em;
-    text-decoration: none;
-
+.tamuFooter nav li a {
+  color: #fff;
+  font-size: 0.75em;
+  text-decoration: none;
 }
-
-.tamuFooter nav li a:hover{ 
+.tamuFooter nav li a:hover {
   border-bottom: 1px dotted #ffffff;
   text-decoration: underline;
 }
-
-footer{
+footer {
   position: absolute;
-  bottom:0;
+  bottom: 0;
   padding: 0;
 }
-
-@media (min-width: 1200px){
-footer {
+@media (min-width: 1200px) {
+  footer {
     width: 100%;
-}}
-@media (min-width: 992px){
-footer {
-  width: 100%;
-}}
-@media (min-width: 768px){
-footer {
-  width: 100%;
-}}
-
-
-@media (min-width: 768px){
-.navbar-form {
+  }
+}
+@media (min-width: 992px) {
+  footer {
     width: 100%;
-
-}}
-
+  }
+}
+@media (min-width: 768px) {
+  footer {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .navbar-form {
+    width: 100%;
+  }
+}
 .pagination {
-   margin: 80px 0;
-} 
-
+  margin: 80px 0;
+}
 .search-hero .search-home-facets {
   margin-top: 60px;
   background-color: #ffffff;
   padding: 20px;
   border: 0px;
 }
-
-
 #content {
   min-height: calc(100vh - 70px);
   padding-bottom: 90px;
 }
-
-
 .active-filters .filters .filter-value {
   padding: 2px 8px;
   margin: 5px 10px;
@@ -284,15 +238,12 @@ footer {
   border-left: 5px solid #500000;
   border-bottom: 1px dotted #000000;
 }
-
 .search-filter-remove {
   margin: 4px 1px 4px 4px;
   font-weight: normal;
   color: #555555;
   border-bottom: none;
 }
-
-
 .badge {
   display: inline-block;
   min-width: 10px;
