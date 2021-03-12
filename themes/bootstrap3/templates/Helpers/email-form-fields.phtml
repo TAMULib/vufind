@@ -22,8 +22,8 @@
   </div>
 <?php endif; ?>
 <div class="form-group">
-  <label class="control-label" for="email_message"><?=$this->transEsc('Message')?>:</label>
-  <textarea id="email_message" class="form-control" name="message" rows="4"><?=$this->message ?? ''?></textarea>
+<!-- 3/12/21 disable email body -dch <label class="control-label" for="email_message"><?=$this->transEsc('Message')?>:</label> -->
+<!--  <textarea id="email_message" class="form-control" name="message" rows="4"><?=$this->message ?? ''?></textarea> -->
 </div>
 <?php if ($this->disableFrom && $this->userEmailInFrom): ?>
   <div class="form-group">
