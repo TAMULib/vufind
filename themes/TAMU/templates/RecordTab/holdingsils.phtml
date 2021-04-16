@@ -70,6 +70,15 @@
 <?php endif; ?>
 
 <?php foreach ($holdings['holdings'] ?? [] as $holding): ?>
+
+<?php 
+
+$sort_holding_id = array_column( $holding['items'], "holding_id" );
+$sort_enumeration_id = array_column( $holding['items'], "enumeration" );
+array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $holding['items']);
+
+?>
+
 <h3>
   <?php $locationText = $this->transEscWithPrefix('location_', $holding['location']); ?>
   <?php if ($holding['locationhref'] ?? false): ?>
@@ -106,7 +115,29 @@
       </td>
     </tr>
   <?php endforeach; ?>
+  
+  <?php 
+		$hold_id = "";  
+		$tmp_hold_id = ""; 
+		$hold_count = 0; 
+  ?>   
+  
   <?php foreach ($holding['items'] as $row): ?>
+  <?php $hold_id = $row['holding_id']; ?>
+
+  <?php 
+		
+		if ($tmp_hold_id != $hold_id) {
+			if ($hold_count > 0) {
+				echo '<tr vocab="http://schema.org/" typeof="Offer"><th><span>&nbsp;</span></th><td></td></tr>'; 
+			}
+			$tmp_hold_id = $hold_id;
+			$hold_count = $hold_count + 1;
+   
+		}
+   
+   ?>	
+
     <?php
         try {
             echo $this->context($this)->renderInContext(
@@ -120,6 +151,11 @@
             );
         }
     ?>
+	
+
+
+  
+  
   <?php endforeach; ?>
   <?php if (!empty($holding['purchase_history'])): ?>
     <tr>

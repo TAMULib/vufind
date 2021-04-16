@@ -6,6 +6,11 @@
   ?>
   <tr vocab="http://schema.org/" typeof="Offer">
     <th class="copy-number"><?=$this->escapeHtml($holding['enumeration'])?>
+
+      <?php if ($holding['issues'][0] ?? false): ?>
+        <span class="holding_note">&nbsp;&nbsp;(<?=$this->escapeHtml($holding['issues'][0])?>)</span>
+      <?php endif; ?> 
+
       <?php if ($holding['enumchron'] ?? false): ?>
         <span class="enumchron">(<?=$this->escapeHtml($holding['enumchron'])?>)</span>
       <?php endif; ?>         
