@@ -72,6 +72,7 @@
         <?php foreach ($coreFields as $current): ?>
           <tr><th><?=$this->transEsc($current['label'])?>:</th><td><?=$current['value']?></td></tr>
         <?php endforeach; ?>
+		<tr><th><?=$this->transEsc("Open URL / SFX")?>:</th><td><a href="http://proxy.library.tamu.edu/login?url=http://linkresolver.tamu.edu/tamu?sid=Endeavor:CitationServer&amp;rft.jtitle=auk.&amp;issn=0004-8038" style=""><img alt="Full Text @ TAMU" src="https://libcat.tamu.edu/vwebv/ui/en_US/images/sfx.gif" id="SFXButton"></a></td></tr>
       </table>
     <?php endif; ?>
     <?php /* End Main Details */ ?>
