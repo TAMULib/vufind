@@ -371,7 +371,6 @@ class Folio extends AbstractAPI implements
         // directly:
         $idType = $this->getBibIdType();
         $idField = $idType === 'instance' ? 'id' : $idType;
-
         $query = [
             'query' => '(' . $idField . '=="' . $this->escapeCql($bibId) . '")'
         ];
@@ -565,6 +564,7 @@ class Folio extends AbstractAPI implements
                     'id' => $bibId,
                     'item_id' => $item->id,
                     'holding_id' => $holding->id,
+                    'holding_hrid' => $holding->hrid,
                     'number' => count($items) + 1,
                     'barcode' => $item->barcode ?? '',
                     'status' => $item->status->name,
@@ -690,7 +690,9 @@ class Folio extends AbstractAPI implements
                 $interface,
                 $combinedQuery
             );
+
             $json = json_decode($response->getBody());
+
             if (!$response->isSuccess() || !$json) {
                 $msg = $json->errors[0]->message ?? json_last_error_msg();
                 throw new ILSException($msg);

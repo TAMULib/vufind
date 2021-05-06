@@ -115,7 +115,7 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $ho
       </td>
     </tr>
   <?php endforeach; ?>
-  
+
   <?php 
 		$hold_id = "";  
 		$tmp_hold_id = ""; 
@@ -132,16 +132,16 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $ho
 			}
 			$tmp_hold_id = $hold_id;
 			$hold_count = $hold_count + 1;
-   
-		}
-   
-   ?>
+?>
     <tr>
       <th><?=$this->transEsc("Get It")?>:</th>
       <td>
-        <div class="getit" id="holdingId_<?=$hold_id?>"></div>
+        <div class="getit" id="holdingId_<?=$row['holding_hrid']?>"></div>
       </td>
     </tr>
+<?
+		}
+   ?>
     <?php
         try {
             echo $this->context($this)->renderInContext(
