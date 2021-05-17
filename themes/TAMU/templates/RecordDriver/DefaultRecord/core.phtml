@@ -67,13 +67,38 @@
       $coreFields = $formatter->getData($driver, $formatter->getDefaults('core'));
     ?>
     <?php if (!empty($coreFields)): ?>
+      <?php
+      $issnParent = $this->driver->getMarcRecord()->getFields("22");
+      $sfxData = new stdClass();
+      $sfxData->issn = null;
+      $sfxData->title = null;
+      $sfxData->isJournal = false;
+      if ($issnParent) {
+        $issnSubField = $issnParent[0]->getSubField("a");
+        if ($issnSubField) {
+          $sfxData->issn = $issnSubField->getData();
+          $sfxData->title = $this->escapeHtml($this->driver->getShortTitle() . ' ' . $this->driver->getSubtitle() . ' ' . $this->driver->getTitleSection());
+        }
+      }
+      ?>
       <table class="table table-striped">
         <caption class="sr-only"><?=$this->transEsc('Bibliographic Details')?></caption>
         <?php foreach ($coreFields as $current): ?>
+          <?php
+          if ($current['label'] == 'Format' && str_contains($current['value'], 'Journal')) {
+            $sfxData->isJournal = true;
+          }
+          ?>
           <tr><th><?=$this->transEsc($current['label'])?>:</th><td><?=$current['value']?></td></tr>
         <?php endforeach; ?>
-		<tr><th><?=$this->transEsc("Open URL / SFX")?>:</th><td><a href="http://proxy.library.tamu.edu/login?url=http://linkresolver.tamu.edu/tamu?sid=Endeavor:CitationServer&amp;rft.jtitle=auk.&amp;issn=0004-8038" style=""><img alt="Full Text @ TAMU" src="https://libcat.tamu.edu/vwebv/ui/en_US/images/sfx.gif" id="SFXButton"></a></td></tr>
-      </table>
+        <?php
+          if ($sfxData->isJournal && $sfxData->issn && $sfxData->title) {
+        ?>
+          <tr><th><?=$this->transEsc("Open URL / SFX")?>:</th><td><a href="http://proxy.library.tamu.edu/login?url=http://linkresolver.tamu.edu/tamu?sid=Endeavor:CitationServer&amp;rft.jtitle=<?=$sfxData->title?>&amp;issn=<?=$sfxData->issn?>" style=""><img alt="Full Text @ TAMU" src="https://libcat.tamu.edu/vwebv/ui/en_US/images/sfx.gif" id="SFXButton"></a></td></tr>
+        <?php
+          }
+        ?>
+    </table>
     <?php endif; ?>
     <?php /* End Main Details */ ?>
   </div>
