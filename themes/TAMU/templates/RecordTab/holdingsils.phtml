@@ -71,7 +71,7 @@
 
 <?php foreach ($holdings['holdings'] ?? [] as $holding): ?>
 
-<?php 
+<?php
 $sort_holding_id = array_column( $holding['items'], "holding_id" );
 $sort_enumeration_id = array_column( $holding['items'], "enumeration" );
 array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $holding['items']);
@@ -116,22 +116,22 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $ho
     </tr>
   <?php endforeach; ?>
 
-  <?php 
-		$hold_id = "";  
-		$tmp_hold_id = ""; 
-		$hold_count = 0; 
-  ?>   
-  
+  <?php
+    $hold_id = "";
+    $tmp_hold_id = "";
+    $hold_count = 0;
+  ?>
+
   <?php foreach ($holding['items'] as $row): ?>
   <?php $hold_id = $row['holding_id']; ?>
-  <?php 
-		
-		if ($tmp_hold_id != $hold_id) {
-			if ($hold_count > 0) {
-				echo '<tr vocab="http://schema.org/" typeof="Offer"><th><span>&nbsp;</span></th><td></td></tr>'; 
-			}
-			$tmp_hold_id = $hold_id;
-			$hold_count = $hold_count + 1;
+  <?php
+
+    if ($tmp_hold_id != $hold_id) {
+      if ($hold_count > 0) {
+        echo '<tr vocab="http://schema.org/" typeof="Offer"><th><span>&nbsp;</span></th><td></td></tr>';
+      }
+      $tmp_hold_id = $hold_id;
+      $hold_count = $hold_count + 1;
 ?>
     <tr>
       <th><?=$this->transEsc("Get It")?>:</th>
@@ -140,7 +140,7 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $ho
       </td>
     </tr>
 <?
-		}
+    }
    ?>
     <?php
         try {
@@ -155,11 +155,11 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $ho
             );
         }
     ?>
-	
 
 
-  
-  
+
+
+
   <?php endforeach; ?>
   <?php if (!empty($holding['purchase_history'])): ?>
     <tr>
