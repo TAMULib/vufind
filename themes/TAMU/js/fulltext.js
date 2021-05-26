@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var $sfxButton = $("#SFXButton");
   if ($sfxButton) {
-    var gifmBase = "http://localhost:9000/";
+    var gifmBase = "https://api-dev.library.tamu.edu/get-it/";
     var sfxUrl = $sfxButton.parent().attr("href");
     $.ajax({
       url: gifmBase+"catalog-access/check-full-text",
