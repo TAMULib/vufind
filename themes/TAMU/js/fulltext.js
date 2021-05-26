@@ -7,7 +7,6 @@ $(document).ready(function() {
       url: gifmBase+"catalog-access/check-full-text",
       data: {"url": encodeURIComponent(sfxUrl)}
     }).done(function(data) {
-      console.log(data);
       if (data.payload.Boolean == true) {
         $("#sfxRow td").children().removeClass("hidden");
       }
