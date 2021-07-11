@@ -5,19 +5,19 @@
 <div class="container browNav">
     <div class="logoLock pull-left">
   <div class="libLogo"></div>
-  <div class="nameBrand">Texas A&amp;M University Libraries</div>
+  <div class="nameBrand"><a style="color:white; border-bottom-style: none;" href="https://library.tamu.edu/">Texas A&amp;M University Libraries</a></div>
 </div>
   <div class="browLinks pull-right">
     <ul>
-      <li><a href="https://askus.library.tamu.edu/">Help</a></li>
-      
+	<li><a href="https://library.tamu.edu/mylibrary/">MyLibrary</a></li>|
+    <li><a href="https://askus.library.tamu.edu/">Help</a></li>
     </ul>
   </div>
 </div>
 </div>
 <div class="container appTitle">
   <div class="navbar-header">
-    <h2>Libraries Catalog</h2>
+    <h2><a style="color:white; border-bottom-style: none;" href="/">Libraries Catalog</a></h2> 
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-collapse" aria-hidden="true">
       <i class="fa fa-bars"></i>
     </button>
@@ -26,7 +26,7 @@
   <?php if (!isset($this->layout()->renderingError)): ?>
     <div class="collapse navbar-collapse" id="header-collapse">
       <nav>
-        <ul class="nav navbar-nav navbar-right flip langNav">
+        <ul class="nav navbar-nav navbar-right languageDrp flip langNav">
           <?php if ($this->feedback()->tabEnabled()): ?>
             <li>
               <a id="feedbackLink" data-lightbox href="<?=$this->url('feedback-home') ?>"><i class="fa fa-envelope" aria-hidden="true"></i> <?=$this->transEsc("Feedback")?></a>
@@ -99,6 +99,13 @@
                 </div>
   <?php endif; ?>
 </div>
+<section>
+	<div style="color: #8A6D3B; background-color: #FCF8E3; border-color: #FAEBCC; padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px;">
+		<div>
+			<p style="text-align: center;">Check out our new Libraries Catalog!<br />This site is in beta and still being developed.<br />Please explore and send us your <a href="https://tamu.qualtrics.com/jfe/form/SV_bynABaT7tFRIugu">feedback via this survey</a>.</p>
+		</div>	
+	</div>
+</section>	
 <?php if ($this->layout()->searchbox !== false): ?>
   <div class="search container navbar">
     <div class="nav searchbox hidden-print" role="search">
