@@ -144,7 +144,7 @@
    <field name="contents" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="url" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="thumbnail" type="string" indexed="false" stored="true"/>
-   <!-- Catalog Specific Fields -->
+   <!-- Catalog Specific Fields --> 
    <field name="lccn" type="string" indexed="true" stored="true"/>
    <field name="ctrlnum" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="isbn" type="isn" indexed="true" stored="true" multiValued="true"/>
@@ -155,6 +155,7 @@
    <field name="callnumber-label" type="string" indexed="true" stored="true"/>
    <field name="callnumber-sort" type="string" indexed="true" stored="true"/>
    <field name="callnumber-raw" type="string" indexed="true" stored="true" multiValued="true" />
+   <field name="callnumber-raw-new" type="string" indexed="true" stored="true" multiValued="true" />  
    <field name="callnumber-search" type="callnumberSearch" indexed="true" stored="true" multiValued="true" />
    <field name="dewey-hundreds" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="dewey-tens" type="string" indexed="true" stored="true" multiValued="true"/>
@@ -264,4 +265,5 @@
  <!-- CopyFields for call numbers -->
  <copyField source="dewey-raw" dest="dewey-search"/>
  <copyField source="callnumber-raw" dest="callnumber-search"/>
+  <copyField source="callnumber-raw-new" dest="callnumber-search"/>
 </schema>
