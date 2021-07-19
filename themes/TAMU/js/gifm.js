@@ -25,7 +25,7 @@ $(document).ready(function() {
       };
 
 			$.ajax({
-				url: gifmBase+"catalog-access/get-html-buttons",
+				url: gifmBase+"catalog-access/get-buttons",
 				data: {"bibId": bibId,"catalogName":catalogName},
 				beforeSend: function() {
 					startTimer();
@@ -35,9 +35,10 @@ $(document).ready(function() {
 					$(".getit div.buttons i").text(data.meta.message);
 				} else {
 					$(".getit .buttons").html("");
-					$.each(data.payload.HashMap,function(mfhd,buttons) {
-						$.each(buttons,function(index,button) {
-							$("#holdingId_"+mfhd+" .buttons").append(button);
+					$.each(data.payload.HashMap,function(mfhd,buttonPresentation) {
+						$.each(buttonPresentation.buttons,function(index,button) {
+							let buttonHtml = '<a target="_blank" class="'+button.cssClasses+'" href="'+button.linkHref+'">'+button.linkText+'</a>';
+							$("#getit_"+button.itemKey+" .buttons").append(buttonHtml);
 						});
 					});
 				}

@@ -77,7 +77,6 @@ $sort_enumeration_id = array_column( $holding['items'], "enumeration" );
 array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $holding['items']);
 
 ?>
-
 <h3>
   <?php $locationText = $this->transEscWithPrefix('location_', $holding['location']); ?>
   <?php if ($holding['locationhref'] ?? false): ?>
@@ -86,7 +85,6 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $ho
     <?=$locationText?>
   <?php endif; ?>
 </h3>
-
 <table class="table table-striped">
   <caption class="sr-only"><?=$this->transEsc('holdings_details_from', ['%%location%%' => $this->transEsc($holding['location'])]) ?></caption>
   <?php $callNos = $this->tab->getUniqueCallNumbers($holding['items']); if (!empty($callNos)): ?>
@@ -132,14 +130,6 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $ho
       }
       $tmp_hold_id = $hold_id;
       $hold_count = $hold_count + 1;
-?>
-    <tr>
-      <th><?=$this->transEsc("Get It")?>:</th>
-      <td>
-        <div class="getit" id="holdingId_<?=$row['holding_hrid']?>"></div>
-      </td>
-    </tr>
-<?
     }
    ?>
     <?php
