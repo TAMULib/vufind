@@ -8,7 +8,7 @@ body {
 }
 .search-hero {
   position: relative;
-  padding: 2rem 8rem;
+  padding: 2rem 5rem;
   font-size: 1.15rem;
   /*background-image: url('@{image-path}/evans_full_c.jpg');
   background-position: center;
@@ -89,19 +89,37 @@ a:hover {
   padding-top: 8px;
   color: #ffffff;
 }
+.nameBrand a {
+  color: #ffffff;
+  border-bottom: none;
+}
+.nameBrand a:hover {
+  color: #ffffff;
+  border-bottom: none;
+}
+.logoLock {
+  text-align: center;
+}
 .browLinks ul {
   margin-bottom: 0px;
-  margin-top: 10px;
+  margin-left: 0;
+  padding-left: 0;
+  text-align: center;
 }
 .browLinks ul li {
   list-style-type: none;
   display: inline-block;
+  border-right: 1px solid #500000;
+  padding: 12px 0;
 }
 .browLinks ul li a {
   color: #ffffff;
   text-decoration: none;
   padding: 12px;
   border-bottom: none;
+}
+.browLinks ul li:last-child {
+  border-right: none;
 }
 .browLinks ul li a:hover {
   color: #000000;
@@ -115,14 +133,17 @@ a:hover {
 .appTitle h2 {
   color: #ffffff;
   font-size: 36px;
+  text-align: center;
 }
 .appTitle h2 a {
   color: #ffffff;
   text-decoration: none;
+  border-bottom: none;
 }
 .appTitle h2 a:hover {
   color: #ffffff;
   text-decoration: none;
+  border-bottom: none;
 }
 .languageDrp a {
   color: #ffffff;
@@ -149,12 +170,22 @@ a:hover {
   background: #500000;
   color: #ffffff;
 }
+.yellowBox {
+  color: #8A6D3B;
+  background-color: #FCF8E3;
+  border-color: #FAEBCC;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-align: center;
+}
+.yellowBox p {
+  text-align: center;
+}
 .searchbox {
   background: #ffffff;
   padding-top: 20px;
-}
-.searchForm_lookfor {
-  min-width: 500px;
 }
 .tab-content {
   padding: 50px;
@@ -182,12 +213,14 @@ a:hover {
 }
 .tamuFooter nav li a {
   color: #fff;
-  font-size: 0.75em;
+  font-size: 0.85em;
   text-decoration: none;
+  border-bottom: 0px dotted #2b5d7d;
 }
 .tamuFooter nav li a:hover {
-  border-bottom: 1px dotted #ffffff;
-  text-decoration: underline;
+  color: #ffc222;
+  border-bottom: 1px dotted #ffc222;
+  text-decoration: none;
 }
 footer {
   position: absolute;
@@ -213,6 +246,14 @@ footer {
   .navbar-form {
     width: 100%;
   }
+  .navbar-form .form-control {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+  }
+}
+.form-control {
+  margin: 10px 0;
 }
 .pagination {
   margin: 80px 0;

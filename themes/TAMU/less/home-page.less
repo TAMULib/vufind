@@ -13,7 +13,7 @@ body{
   &:extend(.clearfix all);
 
   position: relative;
-  padding: 2rem 8rem;
+  padding: 2rem 5rem;
   font-size: 1.15rem;
   
   /*background-image: url('@{image-path}/evans_full_c.jpg');
@@ -72,7 +72,6 @@ body{
   
 }
 
-
 .navbar-brand {
   float: left;
   height: auto; 
@@ -81,7 +80,6 @@ body{
   line-height: 20px;
 }
 
-
 /* Hide search bar */
 .template-dir-search.template-name-home .search.container { display: none; }
 
@@ -89,8 +87,6 @@ body{
   background-color: #3c0000;
   border-bottom:1px solid #333;
 }
-
-
 
 .libLogo {
   display: inline-block;
@@ -117,15 +113,22 @@ body{
   border-bottom: none;
 }
 
+.logoLock{
+  text-align:center;
+}
+
 .browLinks ul{
   margin-bottom: 0px;
-  margin-top:10px;
+  margin-left: 0;
+  padding-left: 0;
+  text-align:center;
 }
 
 .browLinks ul li{
 list-style-type: none;
 display: inline-block;
-border-right: 1px solid rgba(0,0,0,.18);
+border-right: 1px solid #500000;
+padding: 12px 0;
 }
 
 .browLinks ul li a{
@@ -133,6 +136,11 @@ border-right: 1px solid rgba(0,0,0,.18);
   text-decoration: none;
   padding: 12px;
   border-bottom: none;
+}
+
+.browLinks ul li:last-child{
+
+border-right: none;
 }
 
 .browLinks ul li a:hover{
@@ -149,6 +157,7 @@ border-right: 1px solid rgba(0,0,0,.18);
 .appTitle h2{
   color:#ffffff;
   font-size:36px;
+  text-align:center;
 }
 
 .appTitle h2 a{
@@ -194,14 +203,26 @@ border-right: 1px solid rgba(0,0,0,.18);
   color:#ffffff;
 }
 
+.yellowBox{
+color: #8A6D3B; 
+background-color: #FCF8E3; 
+border-color: #FAEBCC; 
+padding: 15px; 
+margin-bottom: 20px; 
+border: 1px solid transparent; 
+border-radius: 4px;
+text-align: center;
+}
+
+.yellowBox p{
+  text-align: center;
+}
+
 .searchbox{
   background: #ffffff;
 padding-top: 20px;
 }
 
-.searchForm_lookfor{
-  min-width:500px;
-}
 .tab-content{
     padding: 50px;
     background: #eeeeee;
@@ -229,16 +250,16 @@ padding-top: 20px;
 
 }
 
-.tamuFooter nav li a{ 
-    color: #fff;
-    font-size: 0.75em;
-    text-decoration: none;
-
+.tamuFooter nav li a {
+  color: #fff;
+  font-size: 0.85em;
+  text-decoration: none;
+  border-bottom: 0px dotted #2b5d7d;
 }
-
-.tamuFooter nav li a:hover{ 
-  border-bottom: 1px dotted #ffffff;
-  text-decoration: underline;
+.tamuFooter nav li a:hover {
+  color:#ffc222;
+  border-bottom: 1px dotted #ffc222;
+  text-decoration: none;
 }
 
 footer{
@@ -265,7 +286,25 @@ footer {
 .navbar-form {
     width: 100%;
 
-}}
+}
+
+.navbar-form .form-control {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    
+}
+
+
+}
+
+
+.form-control {
+  margin: 10px 0;
+  
+}
+
+
 
 .pagination {
    margin: 80px 0;
