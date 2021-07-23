@@ -125,9 +125,32 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $ho
   <?php
 
     if ($tmp_hold_id != $hold_id) {
-      if ($hold_count > 0) {
-        echo '<tr vocab="http://schema.org/" typeof="Offer"><th><span>&nbsp;</span></th><td></td></tr>';
+  ?>
+        <tr vocab="http://schema.org/" typeof="Offer">
+          <th>
+  <?php
+      if ($row['issues'][0] ?? false) {
+  ?>
+            <span>Library Owns</span>
+  <?php
+      } else {
+  ?>
+            <span>&nbsp;</span>
+  <?php
       }
+  ?>
+          </th>
+          <td>
+  <?php
+      if ($row['issues'][0] ?? false) {
+  ?>
+            <span class="holding_note">&nbsp;&nbsp;(<?=$this->escapeHtml($row['issues'][0])?>)</span>
+  <?php
+      }
+  ?>
+          </td>
+        </tr>
+  <?php
       $tmp_hold_id = $hold_id;
       $hold_count = $hold_count + 1;
     }
