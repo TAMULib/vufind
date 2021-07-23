@@ -1,6 +1,6 @@
 $(document).ready(function() {
   var $sfxButton = $("#SFXButton");
-  if ($sfxButton) {
+  if ($sfxButton && $sfxButton.parent().attr("href")) {
     var sfxUrl = $sfxButton.parent().attr("href");
     $.ajax({
       url: gifmBase+"catalog-access/check-full-text",
