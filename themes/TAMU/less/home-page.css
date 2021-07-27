@@ -21,13 +21,13 @@ a {
   text-decoration: none;
   border-bottom: 1px dotted #00648b;
 }
-
-a:hover, a:focus, .channel .channel-record.is-selected {
+a:hover,
+a:focus,
+.channel .channel-record.is-selected {
   color: #003f58;
   border-bottom: 1px solid #003f58;
   text-decoration: none;
 }
-
 .image-credit {
   position: absolute;
   bottom: 0;
@@ -155,7 +155,7 @@ a:hover, a:focus, .channel .channel-record.is-selected {
   text-decoration: none;
 }
 .languageDrp a:hover {
-  color: #000000;
+  color: #ffffff;
   border-bottom: none;
   text-decoration: none;
 }
@@ -169,10 +169,16 @@ a:hover, a:focus, .channel .channel-record.is-selected {
   border-bottom: 1px dotted #2b5d7d;
   text-decoration: none;
 }
-.langNav {
-  margin-top: 20px;
-  background: #500000;
-  color: #ffffff;
+.nav > li > a:hover,
+.nav > li > a:focus {
+  color: #000000;
+  outline: dotted 1px #000;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+  color: #000;
+  text-decoration: none;
+  background-color: #eee;
 }
 .yellowBox {
   color: #8A6D3B;
@@ -190,6 +196,12 @@ a:hover, a:focus, .channel .channel-record.is-selected {
 .searchbox {
   background: #ffffff;
   padding-top: 20px;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #262626;
+  text-decoration: none;
+  background-color: #cff1ff;
 }
 .tab-content {
   padding: 50px;
@@ -244,6 +256,11 @@ footer {
 @media (min-width: 768px) {
   footer {
     width: 100%;
+  }
+  .langNav {
+    margin-top: 20px;
+    background: #500000;
+    color: #ffffff;
   }
 }
 @media (min-width: 768px) {
