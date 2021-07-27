@@ -6,10 +6,14 @@
 body {
   position: relative;
 }
+.main {
+  z-index: 0;
+}
 .search-hero {
   position: relative;
-  padding: 2rem 5rem;
+  padding: 2rem 3rem;
   font-size: 1.15rem;
+  z-index: 1;
   /*background-image: url('@{image-path}/evans_full_c.jpg');
   background-position: center;
   background-repeat: no-repeat;
@@ -137,7 +141,7 @@ a:focus,
 .appTitle h2 {
   color: #ffffff;
   font-size: 36px;
-  text-align: center;
+  float: left;
 }
 .appTitle h2 a {
   color: #ffffff;
@@ -174,6 +178,23 @@ a:focus,
   color: #000000;
   outline: dotted 1px #000;
 }
+.nav > li {
+  position: relative;
+  display: block;
+  z-index: 1000;
+}
+.navbar-toggle {
+  position: relative;
+  float: right;
+  padding: 9px 10px;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
 .nav > li > a:hover,
 .nav > li > a:focus {
   color: #000;
@@ -189,6 +210,7 @@ a:focus,
   border: 1px solid transparent;
   border-radius: 4px;
   text-align: center;
+  z-index: 0;
 }
 .yellowBox p {
   text-align: center;
@@ -203,8 +225,34 @@ a:focus,
   text-decoration: none;
   background-color: #cff1ff;
 }
+.languageDrp a {
+  color: #000000;
+  border-bottom: none;
+  text-decoration: none;
+}
+.langNav {
+  margin-top: 0;
+  background: #ffffff;
+  color: #000000;
+  z-index: 1000;
+}
+@media (max-width: 767px) {
+  .navbar-nav .open .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: #ffffff;
+    border: 0;
+    box-shadow: none;
+    z-index: 1000;
+  }
+  .navbar-header {
+    padding-left: 20px;
+  }
+}
 .tab-content {
-  padding: 50px;
+  padding: 30px;
   background: #eeeeee;
 }
 .nav-tabs > li.active > a,
@@ -222,6 +270,7 @@ a:focus,
   border-radius: 0px;
   padding: 20px;
   min-height: 50px;
+  z-index: 2;
 }
 .tamuFooter nav li {
   display: inline-block;
@@ -271,6 +320,15 @@ footer {
     display: inline-block;
     width: 100%;
     vertical-align: middle;
+  }
+  .languageDrp a {
+    color: #ffffff;
+    border-bottom: none;
+    text-decoration: none;
+  }
+  .appTitle h2 {
+    color: #ffffff;
+    font-size: 36px;
   }
 }
 .form-control {
