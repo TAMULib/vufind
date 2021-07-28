@@ -118,7 +118,14 @@
 		</div>	
 	</div>
 </section>	
-<?php if ($this->layout()->searchbox !== false): ?>
+<?php 
+if ( 
+
+(strpos($_SERVER['REDIRECT_URL'], 'Alphabrowse') === false) && 
+(strpos($_SERVER['REDIRECT_URL'], 'search/reserves') === false) && 
+($this->layout()->searchbox !== false) ): 
+
+?>
   <div class="search container navbar">
     <div class="nav searchbox hidden-print" role="search">
       <?=$this->layout()->searchbox ?>
