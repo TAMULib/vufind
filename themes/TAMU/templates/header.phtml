@@ -3,11 +3,23 @@
 <div class="banner container-fluid navbar">
 <div class="container-fluid brow">  
 <div class="container browNav">
-    <div class="logoLock pull-left">
+    <div class="logoLock pull-left hidden-xs hidden-sm">
   <div class="libLogo"></div>
   <div class="nameBrand"><a href="https://library.tamu.edu/">Texas A&amp;M University Libraries</a></div>
 </div>
-  <div class="browLinks pull-right">
+
+<div class="logoLock hidden-md hidden-lg">
+  <div class="libLogo"></div>
+  <div class="nameBrand"><a href="https://library.tamu.edu/">Texas A&amp;M University Libraries</a></div>
+</div>
+
+  <div class="browLinks pull-right hidden-xs hidden-sm">
+    <ul>
+	<li><a href="https://library.tamu.edu/mylibrary/">MyLibrary</a></li>
+    <li><a href="https://askus.library.tamu.edu/">Help</a></li>
+    </ul>
+  </div>
+  <div class="browLinks center-block hidden-md hidden-lg"> 
     <ul>
 	<li><a href="https://library.tamu.edu/mylibrary/">MyLibrary</a></li>
     <li><a href="https://askus.library.tamu.edu/">Help</a></li>
@@ -17,7 +29,7 @@
 </div>
 <div class="container appTitle">
   <div class="navbar-header">
-    <h2><a href="/">Libraries Catalog</a></h2> 
+    <h2><a href="/vufind">Libraries Catalog</a></h2> 
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-collapse" aria-hidden="true">
       <i class="fa fa-bars"></i>
     </button>
@@ -100,9 +112,9 @@
   <?php endif; ?>
 </div>
 <section>
-	<div style="color: #8A6D3B; background-color: #FCF8E3; border-color: #FAEBCC; padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px;">
+	<div class="yellowBox">
 		<div>
-			<p style="text-align: center;">Welcome to our new Libraries Catalog!<br />This site is in beta and still being developed.<br />Please explore and send us your <a href="https://tamu.qualtrics.com/jfe/form/SV_bynABaT7tFRIugu">feedback via this survey</a>.</p>
+			<p>Welcome to our new Libraries Catalog!<br />This site is in beta and still being developed.<br />Please explore and send us your <a href="https://tamu.qualtrics.com/jfe/form/SV_bynABaT7tFRIugu">feedback via this survey</a>.</p>
 		</div>	
 	</div>
 </section>	
