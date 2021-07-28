@@ -6,16 +6,11 @@
   ?>
   <tr vocab="http://schema.org/" typeof="Offer">
     <th class="copy-number"><?=$this->escapeHtml($holding['enumeration'])?>
-
-      <?php if ($holding['issues'][0] ?? false): ?>
-        <span class="holding_note">&nbsp;&nbsp;(<?=$this->escapeHtml($holding['issues'][0])?>)</span>
-      <?php endif; ?> 
-
       <?php if ($holding['enumchron'] ?? false): ?>
         <span class="enumchron">(<?=$this->escapeHtml($holding['enumchron'])?>)</span>
-      <?php endif; ?>         
+      <?php endif; ?>
     </th>
-    <td>
+    <td class="getit" id="getit_<?php echo $holding['item_hrid'];?>">
       <?php if ($holding['reserve'] == "Y"): ?>
         <link property="availability" href="http://schema.org/InStoreOnly" />
         <?=$this->transEsc("On Reserve - Ask at Circulation Desk")?><br />
@@ -28,25 +23,25 @@
            <span class="text-success"><?=$this->transEsc("Available")?><link property="availability" href="http://schema.org/InStock" /></span>
 
       <?php if ( 1 == 2 ) { ?>
-	  
+
           <?php if ($holding['link'] ?? false): ?>
             <a class="<?=$check ? 'checkRequest ' : ''?>placehold" <?php if (!empty($holding['linkLightbox'])): ?>data-lightbox <?php endif; ?>href="<?=$this->recordLink()->getRequestUrl($holding['link'])?>"><i class="fa fa-flag" aria-hidden="true"></i>&nbsp;<?=$this->transEsc($check ? "Check Hold" : "Place a Hold")?></a>
           <?php endif; ?>
-		  
-      <?php } ?>	
-	  
+
+      <?php } ?>
+
           <?php if ($holding['storageRetrievalRequestLink'] ?? false): ?>
             <a class="<?=$checkStorageRetrievalRequest ? 'checkStorageRetrievalRequest ' : ''?> placeStorageRetrievalRequest" data-lightbox href="<?=$this->recordLink()->getRequestUrl($holding['storageRetrievalRequestLink'])?>"><i class="fa fa-flag" aria-hidden="true"></i>&nbsp;<?=$this->transEsc($checkStorageRetrievalRequest ? "storage_retrieval_request_check_text" : "storage_retrieval_request_place_text")?></a>
           <?php endif; ?>
 
       <?php if ( 1 == 2 ) { ?>
-	  
+
           <?php if ($holding['ILLRequestLink'] ?? false): ?>
             <a class="<?=$checkILLRequest ? 'checkILLRequest ' : ''?>placeILLRequest" data-lightbox href="<?=$this->recordLink()->getRequestUrl($holding['ILLRequestLink'])?>"><i class="fa fa-flag" aria-hidden="true"></i>&nbsp;<?=$this->transEsc($checkILLRequest ? "ill_request_check_text" : "ill_request_place_text")?></a>
           <?php endif; ?>
-		  
-      <?php } ?>	
-	  
+
+      <?php } ?>
+
         <?php else: ?>
           <?php /* Begin Unavailable Items (Recalls) */ ?>
           <span class="text-danger"><?=$this->transEsc($holding['status'])?><link property="availability" href="http://schema.org/OutOfStock" /></span>
@@ -63,8 +58,8 @@
           <?php if ($holding['link'] ?? false): ?>
             <a class="<?=$check ? 'checkRequest' : ''?> placehold" <?php if (!empty($holding['linkLightbox'])): ?>data-lightbox <?php endif; ?>href="<?=$this->recordLink()->getRequestUrl($holding['link'])?>"><i class="fa fa-flag" aria-hidden="true"></i>&nbsp;<?=$this->transEsc($check ? "Check Recall" : "Recall This")?></a>
           <?php endif; ?>
-		  
-      <?php } ?>	
+
+      <?php } ?>
 
           <?=$this->relais()->renderButtonIfActive($this->driver ?? null)?>
         <?php endif; ?>
