@@ -281,19 +281,26 @@ public class CallNumberTools
         // If we made it this far, did not find a valid LC number, so use what we have:
         return new LCCallNumber(firstCall).getShelfKey();
     }
+
 	
-    /**
-     * Extract the call number label from a record
-     * @param record MARC record
-     * @param fieldSpec taglist for call number fields
-     * @return Call number label
-     */
-    public String getCallNumberNoDot(final Record record, String fieldSpec) {
+    public String getSearchCallNumberNoDot(final Record record, String fieldSpec) {
 
         String val = SolrIndexer.instance().getFirstFieldVal(record, fieldSpec);
 
         if (val != null) {
                 val = val.replace('.', ' ');
+				val = val.trim().replaceAll("\\s{2,}", " ");
+            return val.toUpperCase();
+        } else {
+            return null;
+        }
+    }
+
+    public String getSearchCallNumber(final Record record, String fieldSpec) {
+
+        String val = SolrIndexer.instance().getFirstFieldVal(record, fieldSpec);
+
+        if (val != null) {
 				val = val.trim().replaceAll("\\s{2,}", " ");
             return val.toUpperCase();
         } else {
