@@ -604,7 +604,7 @@ class Folio extends AbstractAPI implements
                     'number' => 0,
                     'barcode' => '',
                     'status' => null,
-                    'availability' => false,
+                    'availability' => true,
                     'is_holdable' => $this->isHoldable($locationName),
                     'holdings_notes'=> $hasHoldingNotes ? $holdingNotes : null,
                     'item_notes' => null,
