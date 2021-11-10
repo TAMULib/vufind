@@ -541,6 +541,7 @@ class Folio extends AbstractAPI implements
     public function getHolding($bibId, array $patron = null, array $options = [])
     {
         $instance = $this->getInstanceByBibId($bibId);
+
         $query = [
             'query' => '(instanceId=="' . $instance->id
                 . '" NOT discoverySuppress==true)'
@@ -584,48 +585,80 @@ class Folio extends AbstractAPI implements
             );
             $holdingCallNumber = $holding->callNumber ?? '';
             $holdingCallNumberPrefix = $holding->callNumberPrefix ?? '';
-            foreach ($this->getPagedResults(
-                'items',
-                '/item-storage/items',
-                $query
-            ) as $item) {
-                $itemNotes = array_filter(
-                    array_map($notesFormatter, $item->notes ?? [])
-                );
-                $locationId = $item->effectiveLocationId;
-                $locationData = $this->getLocationData($locationId);
-                $locationName = $locationData['name'];
-                $locationCode = $locationData['code'];
+
+            $holdingItems = iterator_to_array($this->getPagedResults('items', '/item-storage/items', $query));
+
+            if (count($holdingItems) == 0) {
                 $callNumberData = $this->chooseCallNumber(
                     $holdingCallNumberPrefix,
                     $holdingCallNumber,
-                    $item->itemLevelCallNumberPrefix ?? '',
-                    $item->itemLevelCallNumber ?? ''
+                    '',
+                    ''
                 );
                 $items[] = $callNumberData + [
                     'id' => $bibId,
-                    'item_id' => $item->id,
-                    'item_hrid' => $item->hrid,
+                    'item_id' => null,
+                    'item_hrid' => null,
                     'holding_id' => $holding->id,
                     'holding_hrid' => $holding->hrid,
-                    'number' => count($items) + 1,
-                    'barcode' => $item->barcode ?? '',
-                    'status' => $item->status->name,
-                    'availability' => $item->status->name == 'Available',
+                    'number' => 0,
+                    'barcode' => '',
+                    'status' => null,
+                    'availability' => false,
                     'is_holdable' => $this->isHoldable($locationName),
                     'holdings_notes'=> $hasHoldingNotes ? $holdingNotes : null,
-                    'item_notes' => !empty(implode($itemNotes)) ? $itemNotes : null,
+                    'item_notes' => null,
                     'issues' => $holdingsStatements,
                     'supplements' => $holdingsSupplements,
                     'indexes' => $holdingsIndexes,
                     'callnumber' => $holding->callNumber ?? '',
-                    'location' => $locationName,
-                    'location_code' => $locationCode,
+                    'location' => '',
+                    'location_code' => '',
                     'reserve' => 'TODO',
-                    'enumeration' => $item->enumeration ?? '',
-                    'item_chronology' => $item->chronology ?? '',
+                    'enumeration' => '',
+                    'item_chronology' => '',
                     'addLink' => true
                 ];
+            } else {
+                foreach ($holdingItems as $item) {
+                    $itemNotes = array_filter(
+                        array_map($notesFormatter, $item->notes ?? [])
+                    );
+                    $locationId = $item->effectiveLocationId;
+                    $locationData = $this->getLocationData($locationId);
+                    $locationName = $locationData['name'];
+                    $locationCode = $locationData['code'];
+                    $callNumberData = $this->chooseCallNumber(
+                        $holdingCallNumberPrefix,
+                        $holdingCallNumber,
+                        $item->itemLevelCallNumberPrefix ?? '',
+                        $item->itemLevelCallNumber ?? ''
+                    );
+                    $items[] = $callNumberData + [
+                        'id' => $bibId,
+                        'item_id' => $item->id,
+                        'item_hrid' => $item->hrid,
+                        'holding_id' => $holding->id,
+                        'holding_hrid' => $holding->hrid,
+                        'number' => count($items) + 1,
+                        'barcode' => $item->barcode ?? '',
+                        'status' => $item->status->name,
+                        'availability' => $item->status->name == 'Available',
+                        'is_holdable' => $this->isHoldable($locationName),
+                        'holdings_notes'=> $hasHoldingNotes ? $holdingNotes : null,
+                        'item_notes' => !empty(implode($itemNotes)) ? $itemNotes : null,
+                        'issues' => $holdingsStatements,
+                        'supplements' => $holdingsSupplements,
+                        'indexes' => $holdingsIndexes,
+                        'callnumber' => $holding->callNumber ?? '',
+                        'location' => $locationName,
+                        'location_code' => $locationCode,
+                        'reserve' => 'TODO',
+                        'enumeration' => $item->enumeration ?? '',
+                        'item_chronology' => $item->chronology ?? '',
+                        'addLink' => true
+                    ];
+                }
             }
         }
         return $items;

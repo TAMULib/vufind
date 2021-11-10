@@ -78,6 +78,7 @@ $sort_holding_id = array_column( $holding['items'], "holding_id" );
 $sort_enumeration_id = array_column( $holding['items'], "enumeration" );
 array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $holding['items']);
 
+$isPurchaseable = ($holdings['total'] == 1 && str_contains($holding['textfields']['holdings_notes'][0], 'Purchase It For Me'));
 ?>
 <h3>
   <?php $locationTextEsc = $this->transEscWithPrefix('location_', $holding['location']); ?>
@@ -112,6 +113,11 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, $ho
         <?php foreach ($textFields as $current): ?>
           <?=$this->linkify($this->escapeHtml($current))?><br/>
         <?php endforeach; ?>
+        <?php
+          if ($textFieldName == 'holdings_notes' && $isPurchaseable) {
+            echo '<div class="getit" id="getit_purchase"></div>';
+          }
+        ?>
       </td>
     </tr>
   <?php endforeach; ?>
