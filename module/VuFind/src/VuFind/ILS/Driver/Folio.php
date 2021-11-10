@@ -541,7 +541,6 @@ class Folio extends AbstractAPI implements
     public function getHolding($bibId, array $patron = null, array $options = [])
     {
         $instance = $this->getInstanceByBibId($bibId);
-
         $query = [
             'query' => '(instanceId=="' . $instance->id
                 . '" NOT discoverySuppress==true)'
@@ -587,8 +586,9 @@ class Folio extends AbstractAPI implements
             $holdingCallNumberPrefix = $holding->callNumberPrefix ?? '';
 
             $holdingItems = iterator_to_array($this->getPagedResults('items', '/item-storage/items', $query));
+            $isPurchaseable = str_contains($holding->notes[0]->note, 'Purchase It For Me');
 
-            if (count($holdingItems) == 0) {
+            if (count($holdingItems) == 0 && $isPurchaseable) {
                 $callNumberData = $this->chooseCallNumber(
                     $holdingCallNumberPrefix,
                     $holdingCallNumber,
