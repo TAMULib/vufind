@@ -586,7 +586,7 @@ class Folio extends AbstractAPI implements
             $holdingCallNumber = $holding->callNumber ?? '';
             $holdingCallNumberPrefix = $holding->callNumberPrefix ?? '';
 
-            $holdingItems = iterator_to_array($this->getPagedResults('items', '/item-storage/items', $query));
+            $holdingItems = iterator_to_array($this->getPagedItemResults('items', '/item-storage/items', $query));
 
             if ($holding->effectiveLocationId) {
                 $fallbackLocationId = $holding->effectiveLocationId;
@@ -799,6 +799,39 @@ class Folio extends AbstractAPI implements
             // found, if count does not increase, something has gone
             // wrong. Stop so we don't loop forever.
         } while ($count < $total && $previousCount != $count);
+    }
+
+    protected function getPagedItemResults($responseKey, $interface, $query = [])
+    {
+        $count = 0;
+        $limit = 20;
+        $offset = 0;
+
+        do {
+            $combinedQuery = array_merge($query, compact('offset', 'limit'));
+            $response = $this->makeRequest(
+                'GET',
+                $interface,
+                $combinedQuery
+            );
+            $json = json_decode($response->getBody());
+            if (!$response->isSuccess() || !$json) {
+                $msg = $json->errors[0]->message ?? json_last_error_msg();
+                throw new ILSException($msg);
+            }
+            $total = $json->totalRecords ?? 0;
+            $previousCount = $count;
+            foreach ($json->$responseKey ?? [] as $item) {
+                $count++;
+                if ($count % $limit == 0) {
+                    $offset += $limit;
+                }
+                yield $item ?? '';
+            }
+            // Continue until the count reaches the total records
+            // found, if count does not increase, something has gone
+            // wrong. Stop so we don't loop forever.
+        } while ($count < $limit && $previousCount != $count);
     }
 
     /**
