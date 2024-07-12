@@ -68,6 +68,10 @@ class RecordDataFormatterFactory extends
             null,
             ['recordLink' => 'title']
         );
+        $spec->setLine(
+            'Uniform Title',
+            'getUniformTitle'
+        );
         $spec->setMultiLine(
             'Authors',
             'getDeduplicatedAuthors',
