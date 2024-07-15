@@ -98,6 +98,13 @@ class RecordDataFormatterFactory extends
             ['itemPrefix' => '<span property="notesLanguage">',
              'itemSuffix' => '</span>']
         );
+        $spec->setLine(
+            'Language Notes',
+            'getLanguageNotes',
+            null,
+            ['itemPrefix' => '<span property="notesLanguage">',
+             'itemSuffix' => '</span>']
+        );
         $spec->setTemplateLine(
             'Published',
             'getPublicationDetails',
