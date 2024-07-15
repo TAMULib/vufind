@@ -1,5 +1,5 @@
 module.exports = {
-  ignorePatterns: ["themes/**/vendor/**"],
+  ignorePatterns: ["themes/**/vendor/**","themes/TAMU/js/"],
   extends: "eslint:recommended",
   env: {
     "browser": true,
