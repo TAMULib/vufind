@@ -93,7 +93,7 @@ class RecordDataFormatterFactory extends
         );
         $spec->setLine(
             'Language Notes',
-            'getLanguageNote',
+            'getLanguageNotes',
             null,
             ['itemPrefix' => '<span property="notesLanguage">',
              'itemSuffix' => '</span>']

@@ -40,13 +40,5 @@ namespace TAMU\RecordDriver;
  */
 class DefaultRecord extends \VuFind\RecordDriver\DefaultRecord
 {
-    /**
-     * Get an array of all the language notes associated with the record.
-     *
-     * @return array
-     */
-    public function getLanguageNote()
-    {
-        return (array)($this->fields['language-notes'] ?? []);
-    }
+
 }
