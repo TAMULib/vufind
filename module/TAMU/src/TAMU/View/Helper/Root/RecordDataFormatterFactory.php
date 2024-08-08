@@ -68,6 +68,10 @@ class RecordDataFormatterFactory extends
             null,
             ['recordLink' => 'title']
         );
+        $spec->setLine(
+            'Uniform Title',
+            'getUniformTitle'
+        );
         $spec->setMultiLine(
             'Authors',
             'getDeduplicatedAuthors',
@@ -89,7 +93,7 @@ class RecordDataFormatterFactory extends
         );
         $spec->setLine(
             'Language Notes',
-            'getLanguageNote',
+            'getLanguageNotes',
             null,
             ['itemPrefix' => '<span property="notesLanguage">',
              'itemSuffix' => '</span>']
