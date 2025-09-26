@@ -53,7 +53,7 @@ VuFind.register('itemStatuses', function ItemStatuses() {
       el.querySelectorAll('.callnumber,.hideIfDetailed,.location,.status').forEach((e) => { e.classList.add('hidden'); });
       // Begin TAMU Customization - Retrieve and inject GIFM buttons on search results page
       fetch(gifmBase+"catalog-access/get-buttons?bibId="+result.id+"&catalogName="+catalogName)
-        .then(test => test.json())
+        .then(response => response.json())
         .then(data => {
           if (data.payload.HashMap) {
             for (const [holdingId, buttonsData] of Object.entries(data.payload.HashMap)) {
