@@ -51,6 +51,25 @@ VuFind.register('itemStatuses', function ItemStatuses() {
         VuFind.setElementContents(callnumAndLocation, VuFind.updateCspNonce(result.full_status));
       });
       el.querySelectorAll('.callnumber,.hideIfDetailed,.location,.status').forEach((e) => { e.classList.add('hidden'); });
+      // Begin TAMU Customization - Retrieve and inject GIFM buttons on search results page
+      fetch(gifmBase+"catalog-access/get-buttons?bibId="+result.id+"&catalogName="+catalogName)
+        .then(test => test.json())
+        .then(data => {
+          if (data.payload.HashMap) {
+            for (const [holdingId, buttonsData] of Object.entries(data.payload.HashMap)) {
+              if (buttonsData) {
+                let buttonHtml = "";
+                buttonsData.buttons.forEach(button => {
+                  buttonHtml += '<a target="_blank" class="'+button.cssClasses+'" href="https://'+button.linkHref+'">'+button.linkText+'</a>';
+                });
+
+                el.querySelector('#getit_'+holdingId).innerHTML = buttonHtml;
+              }
+            }
+          }
+        }
+      );
+      // End TAMU Customization - Retrieve and inject GIFM buttons on search results page
     } else if (typeof(result.missing_data) !== 'undefined'
       && result.missing_data
     ) {

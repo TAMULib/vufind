@@ -49,6 +49,8 @@
             $statusDescriptionTokens = $availabilityStatus->getStatusDescriptionTokens();
           ?>
           <span class="<?=$this->escapeHtmlAttr($statusClass)?>"><?=$this->transEsc($statusDescription, $statusDescriptionTokens)?></span>
+          <!-- TAMU Customization - Provide getit element for check_item_status.js GIFM injection -->
+          <div id="getit_<?=$item['holding_hrid']?>" class="getit"></div>
       </td>
     </tr>
 
