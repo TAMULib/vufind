@@ -1,4 +1,6 @@
 <?php
+  // TAMU Customization - Add config for use by check_item_statuses.js GIFM js
+  $this->headScript()->appendFile("tamu_config.js");
   $coverDetails = $this->record($this->driver)->getCoverDetails('result-list', 'medium', $this->recordLinker()->getUrl($this->driver));
   $cover = $coverDetails['html'];
   $thumbnail = false;
