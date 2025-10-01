@@ -3,6 +3,7 @@
     <th><?=$this->transEsc('Location')?></th>
     <th><?=$this->transEsc('Call Number')?></th>
     <th><?=$this->transEsc('Status')?></th>
+    <th><?=$this->transEsc('Get It')?></th>
   </tr>
   <?php $i = 0; ?>
   <?php foreach ($this->statusItems as $item): ?>
@@ -49,6 +50,8 @@
             $statusDescriptionTokens = $availabilityStatus->getStatusDescriptionTokens();
           ?>
           <span class="<?=$this->escapeHtmlAttr($statusClass)?>"><?=$this->transEsc($statusDescription, $statusDescriptionTokens)?></span>
+      </td>
+      <td>
           <!-- TAMU Customization - Provide getit element for check_item_status.js GIFM injection -->
           <div id="getit_<?=$item['holding_hrid']?>" class="getit"></div>
       </td>
