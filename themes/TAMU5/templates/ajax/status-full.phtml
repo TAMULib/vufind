@@ -6,7 +6,13 @@
     <th><?=$this->transEsc('Get It')?></th>
   </tr>
   <?php $i = 0; ?>
-  <?php foreach ($this->statusItems as $item): ?>
+  <?php
+    //TAMU Customization - Sort holding item's by enumeration
+    $statusItems = $this->statusItems;
+    $enumerations = array_column($statusItems, 'enumeration');
+    array_multisort($enumerations, SORT_ASC, SORT_NATURAL, $statusItems);
+  ?>
+  <?php foreach ($statusItems as $item): ?>
     <?php
       if (++$i == 5) {
         // Show no more than 5 items
@@ -37,6 +43,13 @@
         <?php else: ?>
           <?=$this->escapeHtml($callNumPrefix)?><?=$this->escapeHtml($item['callnumber'])?>
         <?php endif; ?>
+        <?php
+        //TAMU Customization - expose volume/enumeration info
+        if ($item['enumeration']): ?>
+          <?=$this->escapeHtml($item['enumeration'])?>
+        <?php
+        endif;
+        ?>
       </td>
       <td class="fullAvailability">
         <?php $availabilityStatus = $item['availability']; ?>
@@ -53,7 +66,7 @@
       </td>
       <td>
           <!-- TAMU Customization - Provide getit element for check_item_status.js GIFM injection -->
-          <div id="getit_<?=$item['holding_hrid']?>" class="getit"></div>
+          <div id="getit_<?=$item['holding_hrid']?>_<?=$item['item_hrid']?>" class="getit"></div>
       </td>
     </tr>
 
