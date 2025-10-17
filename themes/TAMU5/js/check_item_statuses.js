@@ -59,8 +59,11 @@ VuFind.register('itemStatuses', function ItemStatuses() {
             for (const [holdingId, buttonsData] of Object.entries(data.payload.HashMap)) {
               if (buttonsData) {
                 buttonsData.buttons.forEach(button => {
-                  let buttonHtml = '<a target="_blank" class="'+button.cssClasses+'" href="https://'+button.linkHref+'">'+button.linkText+'</a>';
-                  el.querySelector("#getit_"+holdingId+"_"+button.itemKey).innerHTML = buttonHtml;
+                  const getItEl = el.querySelector("#getit_"+holdingId+"_"+button.itemKey);
+                  if (getItEl) {
+                    let buttonHtml = '<a target="_blank" class="'+button.cssClasses+'" href="https://'+button.linkHref+'">'+button.linkText+'</a>';
+                    getItEl.innerHTML = buttonHtml;
+                  }
                 });
               }
             }
