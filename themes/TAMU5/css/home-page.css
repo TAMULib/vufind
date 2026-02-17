@@ -688,3 +688,12 @@ a.btn_purchase {
 .mainbody.solo {
   width: 100%;
 }
+
+.result-formats {
+    font-size: 1.1rem;
+}
+
+
+.autocomplete-results {
+  z-index: 1000;
+}
