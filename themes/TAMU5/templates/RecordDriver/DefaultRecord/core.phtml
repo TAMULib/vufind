@@ -88,7 +88,7 @@
           <tr id="sfxRow">
             <th><?=$this->transEsc("Online Availability")?>:</th>
             <td>
-              <a id="sfxButton" data-issn="<?=$sfxData->issn?>" data-title="<?=$sfxData->title?>" href="http://proxy.library.tamu.edu/login?url=http://linkresolver.tamu.edu/tamu?sid=Endeavor:CitationServer&amp;rft.jtitle=<?=$sfxData->title?>&amp;issn=<?=$sfxData->issn?>">
+              <a id="sfxButton" data-issn="<?= $sfxData->issn ?>" data-title="<?= $sfxData->title ?>" href="https://resolver.ebsco.com/result?sid=ReviseRequest&jtitle=<?= $sfxData->title ?>&amp;issn=<?= $sfxData->issn ?>">
                 <img alt="Check for online availability" src="<?php echo $this->imageLink("sfx.jpg");?>" />
               </a>
             </td>
