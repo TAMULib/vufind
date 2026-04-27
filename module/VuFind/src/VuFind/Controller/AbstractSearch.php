@@ -108,7 +108,7 @@ class AbstractSearch extends AbstractBase
         // Handle request to edit existing saved search:
         $view->saved = false;
         $searchId = $this->params()->fromQuery('edit', false);
-        if ($searchId !== false) {
+        if ($searchId !== false && intval($searchId) > 0) {
             $view->saved = $this->restoreAdvancedSearch($searchId);
         }
 
@@ -394,7 +394,11 @@ class AbstractSearch extends AbstractBase
         if ($totalResults > 0 && $page > $lastPage) {
             $queryParams = $request;
             $queryParams['page'] = $lastPage;
-            return $this->redirect()->toRoute('search-results', [], [ 'query' => $queryParams ]);
+            return $this->redirect()->toRoute(
+                $params->getOptions()->getSearchAction(),
+                [],
+                ['query' => $queryParams]
+            );
         }
 
         // If we received an EmptySet back, that indicates that the real search
