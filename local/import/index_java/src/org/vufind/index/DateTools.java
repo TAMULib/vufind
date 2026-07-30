@@ -52,9 +52,8 @@ public class DateTools
             }
         }
 
-        // Now track down relevant RDA-style 264c dates; we only care about
-        // copyright and publication dates (and ignore copyright dates if
-        // publication dates are present).
+        // Now track down relevant RDA-style 264c dates; every date is
+        // considered, but only the first date found is used.
         Set<String> pubDates = new LinkedHashSet<String>();
         Set<String> copyDates = new LinkedHashSet<String>();
         List<VariableField> list264 = record.getVariableFields("264");
@@ -73,6 +72,12 @@ public class DateTools
                         if (currentDateStr != null) copyDates.add(currentDateStr);
                         break;
                     case '3':
+                        if (currentDateStr != null) copyDates.add(currentDateStr);
+                        break;
+                    case '0':
+                        if (currentDateStr != null) copyDates.add(currentDateStr);
+                        break;
+                    case '2':
                         if (currentDateStr != null) copyDates.add(currentDateStr);
                         break;
                 }
