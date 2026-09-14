@@ -11,10 +11,10 @@
   <xsl:template match="marc:record">
       <table class="staff-view--marc table table-striped">
         <tr class="pace-car">
-          <th class="marc__tag"/>
-          <td class="marc__ind"/>
-          <td class="marc__ind"/>
-          <td class="marc__field"/>
+          <th class="marc__tag">Tag</th>
+          <th class="marc__ind">First Indicator</th>
+          <th class="marc__ind">Second Indicator</th>
+          <th class="marc__field">Subfields</th>
         </tr>
         <tr class="marc-row-LEADER">
           <th>LEADER</th>
