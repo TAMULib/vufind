@@ -1,0 +1,106 @@
+<?php
+  // Load search actions and settings (if any):
+  $options = $this->searchOptions($searchClassId);
+  $basicSearch = $options->getSearchAction();
+  $advSearch = $options->getAdvancedSearchAction();
+  $noJsSupport = $this->config()->nonJavascriptSupportEnabled();
+?>
+
+<br />
+<div class="search-home-facets">
+
+	<div id="facet_collection_container" class="home-facet collection">
+		<h2>Browse by Library Locations</h2>
+		<div>
+
+			<ul>
+				<li>	
+					<span class="main text">
+					<span class="facet-value"><a href='Search/Results?type=AllFields&filter%5B%5D=collection%3A"0%2FAvailable+Online%2F"'>Available Online</a></span></span>
+				</li>
+				<li>
+					<span class="main text" role="menuitem">
+					<span class="facet-value"><a href='Search/Results?filter[]=~collection%3A"1%2FSterling+C.+Evans+Library+%26+Annex+Library%2FEvans+Bestseller+Collection%2F"&filter[]=~collection%3A"1%2FBusiness+Library+%26+Collaboration+Commons%2FBestseller+Collection%2F"'>Bestseller Collections</a></span></span>
+				</li>
+				<li>		
+					<span class="main text" role="menuitem">
+					<span class="facet-value"><a href='Search/Results?type=AllFields&filter%5B%5D=collection%3A%220%2FSterling+C.+Evans+Library+%26+Annex+Library%2F%22'>Sterling C. Evans Library and Annex</a></span></span>
+				</li>
+				<li>			
+					<span class="main text" role="menuitem">
+					<span class="facet-value"><a href='Search/Results?type=AllFields&filter%5B%5D=collection%3A"0%2FWest+Campus+Library%2F"'>West Campus Library</a></span></span>
+				</li>
+				<li>			
+					<span class="main text" role="menuitem">
+					<span class="facet-value"><a href='Search/Results?type=AllFields&filter%5B%5D=collection%3A"0%2FCushing+Memorial+Library+%26+Archives%2F"'>Cushing Memorial Library & Archives</a></span></span>
+
+				</li>
+				<li>
+					<span class="main text" role="menuitem">
+					<span class="facet-value"><a href='Search/Results?type=AllFields&filter%5B%5D=collection%3A"0%2FMedical+Sciences+Library%2F"'>Medical Sciences Library (main and regional locations)</a></span></span>
+				</li>
+				<li>
+					<span class="main text" role="menuitem">
+					<span class="facet-value"><a href='Search/Results?type=AllFields&filter%5B%5D=collection%3A"0%2FPolicy+Sciences+%26+Economics+Library%2F"'>Policy Sciences and Economics Library</a></span></span>
+				</li>
+				<li>
+					<span class="main text" role="menuitem">
+					<span class="facet-value"><a href='Search/Results?type=AllFields&filter[]=collection%3A"0%2FJack+K.+Williams+Library%2F"'>Jack K. Williams Library Galveston</a></span></span>
+				</li>
+				<li>
+					<span class="main text" role="menuitem">
+					<span class="facet-value"><a href='Search/Results?type=AllFields&filter%5B%5D=collection%3A"0%2FRemote+Storage+Facility%2F"'>Remote Storage Facility</a></span></span>
+				</li>
+			</ul>
+		
+	  </div>
+	</div>
+		
+	<div id="facet_collection_container" class="home-facet collection">
+		<h2>Other Search Options</h2>
+		<div>
+
+			<ul>
+				<li>
+					<span class="main text">
+					<span class="value"><a href="Alphabrowse/Home">Browse by subject, author, title, or call number</a></span></span>
+				</li>
+				<li>
+					<span class="main text">
+					<span class="value"><a href="https://library.tamu.edu/search-pages/articles.html">Find Articles</a></span></span>
+				</li>
+				<li>
+					<span class="main text">
+					<span class="value"><a href="https://publications.ebsco.com/?custId=s8516548&groupId=main&profileId=pfi">Find eJournals</a></span></span>
+				</li>
+				<li>
+					<span class="main text">
+					<span class="value"><a href="https://tamu.libguides.com/az/databases?a=all">Find Databases</a></span></span>
+				</li>
+				<li>
+					<span class="main text">
+					<span class="value"><a href="https://library.tamu.edu/open-ed/textbook-reserves.html">Course Reserves</a></span></span>
+				</li>
+				<li>
+					<span class="main text">
+					<span class="value"><a href="https://getitforme.library.tamu.edu/">Get It For Me</a></span></span>
+				</li>					
+			</ul>
+		
+	  </div>
+	</div>
+
+	<div id="facet_collection_container" class="home-facet collection">
+		<h2>Help</h2>
+		<div>
+		
+		<ul>
+			<li>
+				<span class="main text">
+				<span class="value"><a href="https://library.tamu.edu/askus.html">AskUs (Chat, Email, Call)</a></span></span>
+			</li>
+		</ul>
+	  </div>
+	</div>
+
+</div>
