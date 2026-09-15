@@ -549,14 +549,11 @@ class Holds
         foreach ($details as $key => $param) {
             $needle = in_array($key, $HMACKeys);
             if ($needle) {
-				// This record in00001878034 fails here  with a null
-				// dch
-				if (is_null($param)) {
-					$queryString[] = $key . "=";
-				} else {
-					$queryString[] = $key . "=" . urlencode($param);
-				}
-                $queryString[] = $key . '=' . urlencode($param);
+                if (is_null($param)) {
+                    $queryString[] = $key . "=";
+                } else {
+                    $queryString[] = $key . '=' . urlencode($param);
+                }
             }
         }
 
