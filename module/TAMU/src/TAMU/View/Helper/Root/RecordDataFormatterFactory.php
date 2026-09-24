@@ -48,7 +48,7 @@ class RecordDataFormatterFactory extends
      *
      * @return array
      */
-    public function getDefaultCoreSpecs()
+    public function getDefaultCoreSpecs(): array
     {
         $spec = new SpecBuilder();
         $spec->setTemplateLine(
@@ -137,7 +137,7 @@ class RecordDataFormatterFactory extends
      *
      * @return array
      */
-    public function getDefaultCollectionInfoSpecs()
+    public function getDefaultCollectionInfoSpecs(): array
     {
         $spec = new SpecBuilder();
         $spec->setMultiLine(
