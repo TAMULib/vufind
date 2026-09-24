@@ -1,6 +1,6 @@
 <?php
   // TAMU Customization - Add config for use by check_item_statuses.js GIFM js
-  $this->headScript()->appendFile("tamu_config.js");
+  $this->assetManager()->appendScriptLink('tamu_config.js');
   $coverDetails = $this->record($this->driver)->getCoverDetails('result-list', 'medium', $this->recordLinker()->getUrl($this->driver));
   $cover = $coverDetails['html'];
   $thumbnail = false;
@@ -130,23 +130,22 @@
         // Display an OpenURL link if configured to do so:
         $openUrl = $this->openUrl($this->driver, 'results');
         $openUrlActive = $openUrl->isActive();
-        $doi = $this->doi($this->driver, 'results');
-        $doiActive = $doi->isActive();
+        $identifierLinksHtml = $this->identifierLinker($this->driver, 'results');
         // Account for replace_other_urls setting
         $urls = $this->record($this->driver)->getLinkDetails($openUrlActive);
-
-        if ($openUrlActive || $doiActive || !empty($urls)): ?>
+      ?>
+      <?php if ($openUrlActive || $identifierLinksHtml || !empty($urls)): ?>
         <?php if ($openUrlActive): ?>
           <br/>
           <?=$openUrl->renderTemplate()?>
         <?php endif; ?>
-        <?php if ($doiActive): ?>
+        <?php if ($identifierLinksHtml): ?>
           <br/>
-          <?=$doi->renderTemplate()?>
+          <?=$identifierLinksHtml?>
         <?php endif; ?>
-        <?php if (!is_array($urls)) $urls = [];
-          if(!$this->driver->isCollection()):
-            foreach ($urls as $current): ?>
+        <?php $urls = is_array($urls) ? $urls : []; ?>
+        <?php if (!$this->driver->isCollection()): ?>
+          <?php foreach ($urls as $current): ?>
               <a href="<?=$this->escapeHtmlAttr($this->proxyUrl($current['url']))?>" class="fulltext" target="new"><i class="fas fa-external-link" aria-hidden="true"></i> <?=($current['url'] == $current['desc']) ? $this->transEsc('Get full text') : $this->escapeHtml($current['desc'])?></a><br/>
           <?php endforeach; ?>
         <?php endif; ?>
