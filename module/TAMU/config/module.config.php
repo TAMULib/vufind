@@ -5,6 +5,17 @@ return array (
   array (
     'plugin_managers' =>
     array (
+      'recorddataformatter_specs' =>
+      array (
+        'factories' =>
+        array (
+          'TAMU\\RecordDataFormatter\\Specs\\DefaultRecord' => 'VuFind\\RecordDataFormatter\\Specs\\DefaultRecordFactory',
+        ),
+        'aliases' =>
+        array (
+          'VuFind\\RecordDataFormatter\\Specs\\DefaultRecord' => 'TAMU\\RecordDataFormatter\\Specs\\DefaultRecord',
+        ),
+      ),
       'ils_driver' =>
       array (
         'factories' =>
