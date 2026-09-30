@@ -697,3 +697,11 @@ a.btn_purchase {
 .autocomplete-results {
   z-index: 1000;
 }
+
+a.record-cover-link,
+a.record-cover-link:hover,
+a.record-cover-link:focus,
+a.record-cover-link:active {
+  text-decoration: none;
+  border-bottom: none;
+}
