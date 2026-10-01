@@ -7,8 +7,9 @@ return [
     ],
     'icons' => [
         'aliases' => [
+            'export' => 'FontAwesome:external-link',
             'facet-unchecked' => 'FontAwesome:square-o',
-            'send-sms' => 'FontAwesome:mobile',
+            'send-sms' => 'FontAwesome:mobile:fa-lg',
         ],
     ],
     'helpers' => [
