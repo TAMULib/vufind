@@ -195,11 +195,6 @@ a:focus,
   margin-bottom: 0px;
   border: none;
 }
-.navbar {
-  
-  border-radius: 0px;
-   
-}
 
 nav ul{
   padding-inline-start: 0;
@@ -273,7 +268,6 @@ max-width: 1299px;
 @media (min-width: 768px) {
   .navbar-expand-md {
       flex-wrap: wrap !important; 
-      justify-content: flex-start; 
   }
   .brow .browLinks {
       flex-direction: row;
@@ -399,18 +393,6 @@ max-width: 1299px;
 }
 
 
-.navbar-toggle {
-  position: relative;
-  float: right;
-  padding: 9px 10px;
-  margin-right: 10px;
-  margin-top: 20px;
-  margin-bottom: 8px;
-  background-color: transparent;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-}
 .nav > li > a:hover,
 .nav > li > a:focus {
   color: #000;
