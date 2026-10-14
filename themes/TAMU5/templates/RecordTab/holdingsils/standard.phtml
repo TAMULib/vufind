@@ -1,4 +1,4 @@
-<?php if (strlen($item['barcode'] ?? '') > 0 || str_contains($item['location_code'], 'cush')): ?>
+<?php if (strlen($item['barcode'] ?? '') > 0 || str_contains($item['location_code'] ?? '', 'cush')): ?>
   <?php
     $check = $item['check'] ?? false;
     $checkStorageRetrievalRequest = $item['checkStorageRetrievalRequest'] ?? false;
@@ -15,7 +15,7 @@
   ?>
   <tr vocab="http://schema.org/" typeof="Offer">
       <td class="copy-number">
-        <?=$this->escapeHtmlAttr($item['call_number_formatted'])?> <?=$this->escapeHtml($item['enumeration'])?>
+        <?=$this->escapeHtmlAttr($item['call_number_formatted'] ?? '')?> <?=$this->escapeHtml($item['enumeration'] ?? '')?>
       <?php if ($item['enumchron'] ?? false): ?>
         <span class="enumchron">(<?=$this->escapeHtml($item['enumchron'])?>)</span>
       <?php endif; ?>
@@ -24,7 +24,7 @@
       <?php endif; ?>
     </td>
     <td>
-      <?php if ($item['reserve'] == "Y"): ?>
+      <?php if (($item['reserve'] ?? 'N') == "Y"): ?>
         <link property="availability" href="http://schema.org/InStoreOnly" />
         <?=$this->transEsc("On Reserve - Ask at Circulation Desk")?><br />
       <?php endif; ?>
@@ -117,6 +117,6 @@
       <link property="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut" />
       <link property="itemOffered" href="#record" />
     </td>
-    <td class="getit" id="getit_<?php echo $item['item_hrid'];?>"></td>
+    <td class="getit" id="getit_<?php echo $this->escapeHtmlAttr($item['item_hrid'] ?? '');?>"></td>
   </tr>
 <?php endif; ?>

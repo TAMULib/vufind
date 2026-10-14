@@ -9,8 +9,13 @@
   <?php
     //TAMU Customization - Sort holding item's by enumeration
     $statusItems = $this->statusItems;
-    $enumerations = array_column($statusItems, 'enumeration');
-    array_multisort($enumerations, SORT_ASC, SORT_NATURAL, $statusItems);
+    $enumerations = array_map(
+        fn ($statusItem) => $statusItem['enumeration'] ?? '',
+        $statusItems
+    );
+    if (count($enumerations) === count($statusItems)) {
+      array_multisort($enumerations, SORT_ASC, SORT_NATURAL, $statusItems);
+    }
   ?>
   <?php foreach ($statusItems as $item): ?>
     <?php
@@ -45,7 +50,7 @@
         <?php endif; ?>
         <?php
         //TAMU Customization - expose volume/enumeration info
-        if ($item['enumeration']): ?>
+        if ($item['enumeration'] ?? false): ?>
           <?=$this->escapeHtml($item['enumeration'])?>
         <?php
         endif;
@@ -66,7 +71,7 @@
       </td>
       <td>
           <!-- TAMU Customization - Provide getit element for check_item_status.js GIFM injection -->
-          <div id="getit_<?=$item['holding_hrid']?>_<?=$item['item_hrid']?>" class="getit"></div>
+          <div id="getit_<?=$this->escapeHtmlAttr($item['holding_hrid'] ?? '')?>_<?=$this->escapeHtmlAttr($item['item_hrid'] ?? '')?>" class="getit"></div>
       </td>
     </tr>
 

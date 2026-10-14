@@ -74,8 +74,8 @@
 <?php foreach ($holdings['holdings'] ?? [] as $holding): ?>
 
 <?php
-$sort_holding_id = array_column($holding['items'], "holdings_id");
-$sort_enumeration_id = array_column($holding['items'], "enumeration");
+$sort_holding_id = array_map(fn ($i) => $i['holdings_id'] ?? '', $holding['items']);
+$sort_enumeration_id = array_map(fn ($i) => $i['enumeration'] ?? '', $holding['items']);
 array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, SORT_NATURAL, $holding['items']);
 
 ?>
@@ -89,7 +89,7 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, SOR
 </h2>
 <table class="table table-striped">
   <caption class="sr-only"><?=$this->transEsc('holdings_details_from', ['%%location%%' => $this->transEsc($holding['location'])]) ?></caption>
-  <?php if ($holding['items'][0]['holding_shelving_title']): ?>
+  <?php if ($holding['items'][0]['holding_shelving_title'] ?? false): ?>
   <tr>
     <th colspan="2"><?=$this->transEsc("Shelving Title")?>: </th>
     <td>
@@ -109,7 +109,7 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, SOR
         <?php endif; ?>
         <br />
       <?php endforeach; ?>
-      <div data-locationcode="<?=$holding['items'][0]['location_code']?>" class="localmap"></div>
+      <div data-locationcode="<?=$this->escapeHtmlAttr($holding['items'][0]['location_code'] ?? '')?>" class="localmap"></div>
     </td>
   </tr>
   <?php endif; ?>
@@ -134,8 +134,9 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, SOR
 
   <?php foreach ($holding['items'] as $item): ?>
   <?php
-    $hold_id = $item['holdings_id'];
-    $fullCallNumber = $item['callnumber_prefix'] . " " . $item['callnumber'];
+    $hold_id = $item['holdings_id'] ?? '';
+    $fullCallNumber = ($item['callnumber_prefix'] ?? '') . " " . ($item['callnumber'] ?? '');
+    $itemIssues = (array)($item['issues'] ?? []);
   ?>
   <?php
 
@@ -144,7 +145,7 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, SOR
         <tr vocab="http://schema.org/" typeof="Offer">
           <th colspan="2">
   <?php
-      if (count($item['issues']) > 0) {
+      if (count($itemIssues) > 0) {
   ?>
             <span>Library Owns: <?=$fullCallNumber?></span>
   <?php
@@ -157,9 +158,9 @@ array_multisort($sort_holding_id, SORT_DESC, $sort_enumeration_id, SORT_ASC, SOR
           </th>
           <td>
   <?php
-      if (count($item['issues']) > 0) {
+      if (count($itemIssues) > 0) {
   ?>
-            <span class="holding_note">(<?=$this->escapeHtml(implode('; ', $item['issues']))?>)</span>
+            <span class="holding_note">(<?=$this->escapeHtml(implode('; ', $itemIssues))?>)</span>
   <?php
       }
   ?>

@@ -35,5 +35,14 @@
         border-color: $primary;
       }
     }
+
+    .noUi-handle-lower {
+      background: #500000;
+      border-color: #500000;
+
+      &.noUi-active {
+        border-color: #500000;
+      }
+    }
   }
 }

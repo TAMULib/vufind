@@ -39,196 +39,193 @@ namespace TAMU\ILS\Driver;
 class Folio extends \VuFind\ILS\Driver\Folio
 {
     /**
-     * This method queries the ILS for holding information.
+     * Support method for getHoldings(): extract details from the holding record
+     * that will be needed by formatHoldingItem() below.
      *
-     * @param string $bibId   Bib-level id
-     * @param array  $patron  Patron login information from $this->patronLogin
-     * @param array  $options Extra options (not currently used)
+     * TAMU Customization - additionally expose the holdings HRID and shelving
+     * title, which are consumed by the holdings and RTAC templates.
      *
-     * @return array An array of associative holding arrays
+     * @param object $holding FOLIO holding record (decoded from JSON)
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @return array
      */
-    public function getHolding($bibId, array $patron = null, array $options = [])
+    protected function getHoldingDetailsForItem($holding): array
     {
-        $instance = $this->getInstanceByBibId($bibId);
-        $query = [
-            'query' => '(instanceId=="' . $instance->id
-                . '" NOT discoverySuppress==true)'
+        return parent::getHoldingDetailsForItem($holding) + [
+            'hrid' => $holding->hrid ?? '',
+            'shelvingTitle' => $holding->shelvingTitle ?? '',
         ];
-        $items = [];
+    }
 
-        foreach ($this->getPagedResults(
-            'holdingsRecords',
-            '/holdings-storage/holdings',
-            $query
-        ) as $holding) {
-            $query = [
-                'query' => '(holdingsRecordId=="' . $holding->id
-                    . '" NOT discoverySuppress==true)'
-            ];
-            $notesFormatter = function ($note) {
-                return !($note->staffOnly ?? false)
-                    && !empty($note->note) ? $note->note : '';
-            };
-            $textFormatter = function ($supplement) {
-                $format = '%s %s';
-                $supStat = $supplement->statement;
-                $supNote = $supplement->note ?? '';
-                $statement = trim(sprintf($format, $supStat, $supNote));
-                return $statement ?? '';
-            };
-            $holdingNotes = array_filter(
-                array_map($notesFormatter, $holding->notes ?? [])
+    /**
+     * Support method for getHoldings() -- return an array of item-level details
+     * from other data: the location, the holdings record, and any current loan on
+     * the item.
+     *
+     * TAMU Customization - holdings statements are exposed as "issues" rather than
+     * "summary", because the TAMU holdings template renders them inline instead of
+     * in the generic holdings text fields block.
+     *
+     * @param string     $locationId     Location identifier from FOLIO
+     * @param array      $holdingDetails Holding details from getHoldingDetailsForItem()
+     * @param ?\stdClass $currentLoan    Any current loan on this item
+     *
+     * @return array
+     */
+    protected function getItemFieldsFromNonItemData(
+        string $locationId,
+        array $holdingDetails,
+        ?\stdClass $currentLoan = null,
+    ): array {
+        $fields = parent::getItemFieldsFromNonItemData(
+            $locationId,
+            $holdingDetails,
+            $currentLoan
+        );
+        $fields['issues'] = $holdingDetails['holdingsStatements'];
+        unset($fields['summary']);
+        return $fields;
+    }
+
+    /**
+     * Support method for getHoldings() -- given a few key details, format an item
+     * for inclusion in the return value.
+     *
+     * TAMU Customization - expose the HRIDs used to build GIFM "Get It" element
+     * ids, the raw enumeration/chronology values and a pre-formatted call number.
+     *
+     * @param string     $bibId            Current bibliographic ID
+     * @param array      $holdingDetails   Holding details from getHoldingDetailsForItem()
+     * @param object     $item             FOLIO item record (decoded from JSON)
+     * @param int        $number           The current item number
+     * @param string     $dueDateValue     The due date to display to the user
+     * @param array      $boundWithRecords Any bib records this holding is bound with
+     * @param ?\stdClass $currentLoan      Any current loan on this item
+     *
+     * @return array
+     */
+    protected function formatHoldingItem(
+        string $bibId,
+        array $holdingDetails,
+        $item,
+        $number,
+        string $dueDateValue,
+        $boundWithRecords,
+        $currentLoan
+    ): array {
+        $result = parent::formatHoldingItem(
+            $bibId,
+            $holdingDetails,
+            $item,
+            $number,
+            $dueDateValue,
+            $boundWithRecords,
+            $currentLoan
+        );
+        return $result + [
+            'item_hrid' => $item->hrid ?? '',
+            'holding_hrid' => $holdingDetails['hrid'],
+            'enumeration' => $item->enumeration ?? '',
+            'item_chronology' => $item->chronology ?? '',
+            'call_number_formatted' => $this->_buildFormattedCallNumber(
+                [
+                    'callnumber_prefix' => $result['callnumber_prefix'] ?? '',
+                    'callnumber' => $result['callnumber'] ?? '',
+                ]
+            ),
+            'holding_shelving_title' => $holdingDetails['shelvingTitle'],
+        ];
+    }
+
+    /**
+     * Support method for getHoldings() -- create a fake item for holdings with no
+     * items from FOLIO.
+     *
+     * TAMU Customization - purchase, bound-with and zero-item workarounds. Unlike
+     * the parent implementation, the synthetic item is left visible in the holdings
+     * display so that "Purchase It For Me" and bound-with records remain reachable.
+     *
+     * @param string $bibId          Bib-level id
+     * @param array  $holdingDetails Holding details from getHoldingDetailsForItem()
+     * @param object $holding        FOLIO holding record (decoded from JSON)
+     *
+     * @return array An associative array with the item keys
+     */
+    protected function buildHoldingsNoItemsData(
+        string $bibId,
+        array $holdingDetails,
+        object $holding
+    ): array {
+        $fallbackLocationId = $holding->effectiveLocationId
+            ?? $holding->permanentLocationId
+            ?? null;
+
+        // Without a location we cannot build a meaningful synthetic item, so
+        // defer to the parent (non-visible) placeholder:
+        if (!$fallbackLocationId) {
+            return parent::buildHoldingsNoItemsData(
+                $bibId,
+                $holdingDetails,
+                $holding
             );
-            $hasHoldingNotes = !empty(implode($holdingNotes));
-            $holdingsStatements = array_map(
-                $textFormatter,
-                $holding->holdingsStatements ?? []
-            );
-            $holdingsSupplements = array_map(
-                $textFormatter,
-                $holding->holdingsStatementsForSupplements ?? []
-            );
-            $holdingsIndexes = array_map(
-                $textFormatter,
-                $holding->holdingsStatementsForIndexes ?? []
-            );
-            $holdingCallNumber = $holding->callNumber ?? '';
-            $holdingCallNumberPrefix = $holding->callNumberPrefix ?? '';
+        }
 
-            $holdingItems = iterator_to_array(
-                $this->getPagedResults(
-                    'items',
-                    '/item-storage/items',
-                    $query
-                )
-            );
+        $boundWithLocations = isset($this->config['TAMU']['bound_with_locations'])
+            ? explode(":", $this->config['TAMU']['bound_with_locations']) : [];
 
-            if ($holding->effectiveLocationId) {
-                $fallbackLocationId = $holding->effectiveLocationId;
-            } elseif ($holding->permanentLocationId) {
-                $fallbackLocationId = $holding->permanentLocationId;
-            } else {
-                $fallbackLocationId = null;
-            }
+        $locAndHoldings = $this->getItemFieldsFromNonItemData(
+            $fallbackLocationId,
+            $holdingDetails
+        );
 
-            //TAMU Customization purchase, boundwith and zero item workarounds
-            if (count($holdingItems) == 0 && $fallbackLocationId) {
-                $boundWithLocations
-                    = isset($this->config['TAMU']['bound_with_locations']) ?
-                    explode(":", $this->config['TAMU']['bound_with_locations']) : [];
-                $holdingLocationData = $this->getLocationData($fallbackLocationId);
+        $callNumberData = $this->chooseCallNumber(
+            $holdingDetails['holdingCallNumberPrefix'],
+            $holdingDetails['holdingCallNumber'],
+            '',
+            ''
+        );
 
-                $callNumberData = $this->chooseCallNumber(
-                    $holdingCallNumberPrefix,
-                    $holdingCallNumber,
-                    '',
-                    ''
-                );
-
-                $isPurchase = false;
-                if ($holdingLocationData['code'] == 'POD'
-                    && $hasHoldingNotes
-                ) {
-                    foreach ($holding->notes as $note) {
-                        if (stripos($note->note, "Purchase It For Me") !== false) {
-                            $isPurchase = true;
-                            break;
-                        }
-                    }
+        $isPurchase = false;
+        if (
+            $locAndHoldings['location_code'] == 'POD'
+            && $holdingDetails['hasHoldingNotes']
+        ) {
+            foreach ($holding->notes ?? [] as $note) {
+                if (stripos($note->note ?? '', "Purchase It For Me") !== false) {
+                    $isPurchase = true;
+                    break;
                 }
-
-                $synthItemType = null;
-                if ($isPurchase) {
-                    $synthItemType = 'purchase-it';
-                } elseif (in_array(
-                    $holdingLocationData['code'],
-                    $boundWithLocations
-                )
-                ) {
-                    $synthItemType = 'bound-with-item';
-                } else {
-                    $synthItemType = 'itemless-holding';
-                }
-
-                if ($synthItemType) {
-                    $items[] = $callNumberData + [
-                        'id' => $bibId,
-                        'item_id' => $synthItemType,
-                        'item_hrid' => $synthItemType,
-                        'holdings_id' => $holding->id,
-                        'holding_hrid' => $holding->hrid,
-                        'number' => 0,
-                        'barcode' => $synthItemType,
-                        'status' => null,
-                        'availability' => true,
-                        'is_holdable' => $this->isHoldable(
-                            $holdingLocationData['name']
-                        ),
-                        'holdings_notes'=> $hasHoldingNotes ? $holdingNotes : null,
-                        'item_notes' => null,
-                        'issues' => $holdingsStatements,
-                        'supplements' => $holdingsSupplements,
-                        'indexes' => $holdingsIndexes,
-                        'location' => $holdingLocationData['name'],
-                        'location_code' => $holdingLocationData['code'],
-                        'reserve' => 'TODO',
-                        'enumeration' => '',
-                        'item_chronology' => '',
-                        'addLink' => true,
-                        'call_number_formatted' => $this->_buildFormattedCallNumber(
-                            $callNumberData
-                        ),
-                        'holding_shelving_title' => $holding->shelvingTitle ?? ''
-                    ];
-                }
-            }
-
-            foreach ($holdingItems as $item) {
-                $itemNotes = array_filter(
-                    array_map($notesFormatter, $item->notes ?? [])
-                );
-                $locationId = $item->effectiveLocationId;
-                $locationData = $this->getLocationData($locationId);
-                $locationName = $locationData['name'];
-                $locationCode = $locationData['code'];
-                $callNumberData = $this->chooseCallNumber(
-                    $holdingCallNumberPrefix,
-                    $holdingCallNumber,
-                    $item->effectiveCallNumberComponents->prefix ?? '',
-                    $item->effectiveCallNumberComponents->callNumber ?? ''
-                );
-                $items[] = $callNumberData + [
-                    'id' => $bibId,
-                    'item_id' => $item->id,
-                    'item_hrid' => $item->hrid,
-                    'holdings_id' => $holding->id,
-                    'holding_hrid' => $holding->hrid,
-                    'number' => count($items) + 1,
-                    'barcode' => $item->barcode ?? '',
-                    'status' => $item->status->name,
-                    'availability' => $item->status->name == 'Available',
-                    'is_holdable' => $this->isHoldable($locationName),
-                    'holdings_notes'=> $hasHoldingNotes ? $holdingNotes : null,
-                    'item_notes' => !empty(implode($itemNotes)) ? $itemNotes : null,
-                    'issues' => $holdingsStatements,
-                    'supplements' => $holdingsSupplements,
-                    'indexes' => $holdingsIndexes,
-                    'location' => $locationName,
-                    'location_code' => $locationCode,
-                    'reserve' => 'TODO',
-                    'enumeration' => $item->enumeration ?? '',
-                    'item_chronology' => $item->chronology ?? '',
-                    'addLink' => true,
-                    'call_number_formatted' => $this->_buildFormattedCallNumber(
-                        $callNumberData
-                    ),
-                    'holding_shelving_title' => $holding->shelvingTitle ?? ''
-                ];
             }
         }
-        return $items;
+
+        if ($isPurchase) {
+            $synthItemType = 'purchase-it';
+        } elseif (in_array($locAndHoldings['location_code'], $boundWithLocations)) {
+            $synthItemType = 'bound-with-item';
+        } else {
+            $synthItemType = 'itemless-holding';
+        }
+
+        return $callNumberData + $locAndHoldings + [
+            'id' => $bibId,
+            'item_id' => $synthItemType,
+            'item_hrid' => $synthItemType,
+            'holdings_id' => $holdingDetails['id'],
+            'holding_hrid' => $holdingDetails['hrid'],
+            'number' => 0,
+            'barcode' => $synthItemType,
+            'status' => null,
+            'availability' => true,
+            'item_notes' => null,
+            'reserve' => 'TODO',
+            'enumeration' => '',
+            'item_chronology' => '',
+            'addLink' => true,
+            'call_number_formatted' => $this->_buildFormattedCallNumber(
+                $callNumberData
+            ),
+            'holding_shelving_title' => $holdingDetails['shelvingTitle'],
+        ];
     }
 
     /**
