@@ -16,8 +16,7 @@
     }
 
     .noUi-handle {
-      background: $primary;
-      border: 1px solid $primary;
+      border: 1px solid;
       width: 20px;
       height: 20px;
       box-shadow: none;
@@ -31,12 +30,10 @@
         background: #FFF;
         border-color: $gray-light;
       }
-      &.noUi-active {
-        border-color: $primary;
-      }
     }
 
-    .noUi-handle-lower {
+    .noUi-handle-lower,
+    .noUi-handle-upper {
       background: #500000;
       border-color: #500000;
 

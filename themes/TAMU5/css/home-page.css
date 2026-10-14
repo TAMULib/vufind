@@ -270,7 +270,7 @@ max-width: 1299px;
 
 
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .navbar-expand-md {
       flex-wrap: wrap !important; 
       justify-content: flex-start; 
@@ -292,29 +292,35 @@ max-width: 1299px;
 
 
 
-.browLinks ul {
+.browLinks {
   margin-bottom: 0px;
   margin-left: 0;
   padding-left: 0;
-  text-align: center;
+  justify-content: flex-end;
 }
-.browLinks ul li {
+.browLinks li {
   list-style-type: none;
-  display: inline-block;
   border-right: 1px solid #500000;
-  padding: 12px 0;
 }
-.brow .nav-link, .browLinks ul li a {
+@media (max-width: 767.98px) {
+  .brow .browLinks {
+    align-items: flex-end;
+  }
+  .brow .browLinks li {
+    width: auto;
+  }
+}
+.brow .nav-link, .browLinks li a {
   color: #ffffff !important;
   text-decoration: none;
   padding: 12px;
   border-bottom: none;
 }
-.browLinks ul li:last-child {
+.browLinks li:last-child {
   border-right: none;
 }
-.brow .nav-link:hover, .browLinks ul li a:hover {
-  color: #000000 !important;
+.brow .nav-link:hover, .browLinks li a:hover {
+  color: #3c0000 !important;
   background-color: #ffc222 !important;
   text-decoration: none;
   border-bottom: none;
