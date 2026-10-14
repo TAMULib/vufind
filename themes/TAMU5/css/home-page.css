@@ -275,6 +275,11 @@ max-width: 1299px;
       flex-wrap: wrap !important; 
       justify-content: flex-start; 
   }
+  .brow .browLinks {
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+  }
 }
 
 .navbar {
