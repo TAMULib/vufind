@@ -589,18 +589,17 @@ footer {
   border-bottom: none;
 }
 .badge {
-  display: inline-block;
   min-width: 10px;
   padding: 3px 7px;
   font-size: 12px;
-  font-weight: bold;
-  line-height: 1;
   color: #4A4A4A;
-  text-align: center;
-  white-space: nowrap;
   vertical-align: middle;
   background-color: #cff1ff;
   border-radius: 10px;
+}
+.facet .badge {
+  /* Prevents the badge from being flex-shrunk, which clips large numbers. */
+  flex-shrink: 0;
 }
 .slider-container .slider-handle {
   background: #500000;
