@@ -191,9 +191,10 @@ a:focus,
 
 
 .navbar {
- 
   margin-bottom: 0px;
   border: none;
+  border-radius: 0px;
+  padding: 0px;
 }
 
 nav ul{
@@ -269,17 +270,12 @@ max-width: 1299px;
   .navbar-expand-md {
       flex-wrap: wrap !important; 
   }
+  /* Mobile-first counterpart lives in the max-width: 767.98px block below. */
   .brow .browLinks {
       flex-direction: row;
       justify-content: flex-end;
       align-items: center;
   }
-}
-
-.navbar {
-  
-  border-radius: 0px;
-  padding: 0px;
 }
 
 
@@ -302,6 +298,7 @@ max-width: 1299px;
   border-right: 1px solid #500000;
 }
 @media (max-width: 767.98px) {
+  /* Desktop counterpart lives in the min-width: 768px block above. */
   .brow .browLinks {
     align-items: flex-end;
   }
@@ -342,16 +339,6 @@ max-width: 1299px;
   color: #ffffff;
   text-decoration: none;
   border-bottom: none;
-}
-.languageDrp a {
-  color: #ffffff;
-  border-bottom: none;
-  text-decoration: none;
-}
-.languageDrp a:hover {
-  color: #ffffff;
-  border-bottom: none;
-  text-decoration: none;
 }
 .language a {
   color: #2b5d7d;
@@ -423,17 +410,6 @@ max-width: 1299px;
   text-decoration: none;
   background-color: #cff1ff;
 }
-.languageDrp a {
-  color: #000000;
-  border-bottom: none;
-  text-decoration: none;
-}
-.langNav {
-  margin-top: 0;
-  background: #ffffff;
-  color: #000000;
-  z-index: 1000;
-}
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
     position: static;
@@ -444,9 +420,6 @@ max-width: 1299px;
     border: 0;
     box-shadow: none;
     z-index: 1000;
-  }
-  .navbar-header {
-    padding-left: 20px;
   }
 }
 .tab-content {
@@ -497,34 +470,9 @@ max-width: 1299px;
     margin: 0 auto;
 }
 
-  .langNav {
-    margin-top: 20px;
-    background: #500000;
-    color: #ffffff;
-  }
-
-  @media (min-width: 1400px) {
-    footer {
-        max-width: 100%;
-    }
-}
-@media (min-width: 1200px) {
-   footer {
-    max-width: 100%;
-    }
-}
-@media (min-width: 992px) {
-    footer {
-      max-width: 100%;
-    }
-}
-@media (min-width: 768px) {
-    footer {
-      max-width: 100%;
-    }
-}
-
+/* Overrides the min-width: 1400px container max-width set above. */
 footer {
+  max-width: 100%;
   padding:0;
 }
 
@@ -537,15 +485,6 @@ footer {
     display: inline-block;
     width: 100%;
     vertical-align: middle;
-  }
-  .languageDrp a {
-    color: #ffffff;
-    border-bottom: none;
-    text-decoration: none;
-  }
-  .appTitle h2 {
-    color: #ffffff;
-    font-size: 36px;
   }
 }
 .form-control {
@@ -689,7 +628,6 @@ a.btn_purchase {
 .autocomplete-results {
   z-index: 1000;
 }
-
 a.record-cover-link,
 a.record-cover-link:hover,
 a.record-cover-link:focus,
