@@ -9,9 +9,7 @@
   $this->assetManager()->appendScriptLink('check_save_statuses.js');
   $this->assetManager()->appendScriptLink('tamu_config.js');
   $this->assetManager()->appendScriptLink('tamu_gifm.js');
-  // The below script, tamu_fulltext.js, was previously used to dynamically hide/display the SFX button.
-  // The link and script are retained only for possible future use.
-  //$this->assetManager()->appendScriptLink('tamu_fulltext.js');
+
   // Add any extra scripts the tabs require:
   foreach ($this->tabsExtraScripts as $script) {
     $this->assetManager()->appendScriptLink($script);
