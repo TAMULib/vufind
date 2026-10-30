@@ -1,24 +1,8 @@
-/* .searchHomeContent {
-  margin-left: -@grid-gutter-width;
-  margin-right: -@grid-gutter-width;
-} 
-*/
 body {
   position: relative;
 }
 .main {
   z-index: 0;
-}
-.search-hero {
-  position: relative;
-  padding: 2rem 3rem;
-  font-size: 1.15rem;
-  z-index: 1;
-  /*background-image: url('@{image-path}/evans_full_c.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  */
 }
 a {
   color: #00648b;
@@ -32,25 +16,6 @@ a:focus,
   border-bottom: 1px solid #003f58;
   text-decoration: none;
 }
-.image-credit {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 1rem;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.image-credit a {
-  color: #fff;
-}
-/* .search-home-facets {
-    margin-top: 60px;
-    background-color: #500000;
-    padding: 20px;
-    border: 2px solid #fff;
-  }	  
-*/
 .search-home-facets h2 {
   color: #000000;
   font-size: 1.25rem;
@@ -386,20 +351,6 @@ max-width: 1299px;
   text-decoration: none;
   background-color: #eee;
 }
-.yellowBox {
-  color: #8A6D3B;
-  background-color: #FCF8E3;
-  border-color: #FAEBCC;
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  text-align: center;
-  z-index: 0;
-}
-.yellowBox p {
-  text-align: center;
-}
 .searchbox {
   background: #ffffff;
   padding-top: 20px;
@@ -500,12 +451,6 @@ footer {
 .pagination {
   margin: 80px 0;
 }
-.search-hero .search-home-facets {
-  margin-top: 60px;
-  background-color: #ffffff;
-  padding: 20px;
-  border: 0px;
-}
 #content {
   min-height: calc(100vh - 70px);
   padding-bottom: 90px;
@@ -564,8 +509,7 @@ footer {
     display: inline-block
 }
 
-.getit a,
-.getit-hathi a {
+.getit a {
     display: inline-block;
     margin: 4px;
     font-weight: normal;
