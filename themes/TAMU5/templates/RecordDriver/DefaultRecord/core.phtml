@@ -73,7 +73,7 @@
     ?>
     <?php if (!empty($coreFields)): ?>
       <table class="table table-striped">
-        <caption class="sr-only"><?=$this->transEsc('Bibliographic Details')?></caption>
+        <caption class="visually-hidden"><?=$this->transEsc('Bibliographic Details')?></caption>
         <?php foreach ($coreFields as $current): ?>
           <?php
           if ($current['label'] == 'Format') {
